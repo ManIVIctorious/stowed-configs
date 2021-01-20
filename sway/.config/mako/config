@@ -1,0 +1,6 @@
+
+[app-name=Firefox summary="Tab von Firefox auf Google Pixel 4a"]
+default-timeout=15000
+
+[app-name=Firefox summary="Tabs empfangen"]
+default-timeout=15000

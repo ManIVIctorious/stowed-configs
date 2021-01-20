@@ -1,0 +1,18 @@
+## Custom keybindings
+#-------------------------------------------------------------------------------
+# Power management
+  # lock screen via <C-M-l>
+  bindsym ctrl+alt+l exec swaylock -f -c 000000
+
+  # systemctl poweroff via <mod-F12>
+  bindsym $mod+F12   exec systemctl poweroff
+
+  # systemctl suspend via <mod-Pause>
+  bindsym $mod+Pause exec systemctl suspend
+
+# start nemo file manager via <mod-n>
+bindsym $mod+n exec nemo
+
+# Change window opacity via <mod++/-> (NumBlock only)
+bindsym $mod+KP_Add      opacity plus  0.05
+bindsym $mod+KP_Subtract opacity minus 0.05

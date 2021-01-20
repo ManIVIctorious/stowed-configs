@@ -1,0 +1,19 @@
+## Autostart programs
+#---------------------------------------------------------------------------------
+# redshift:
+  exec gammastep-indicator
+
+# Gnome Software background update
+  exec gnome-software --gapplication-service
+
+# Geary mail program
+  exec org.gnome.Geary --gapplication-service
+
+# Dropbox client
+  exec com.dropbox.Client
+
+# libinput gestures support
+  exec libinput-gestures
+
+# use waybar instead of swaybar
+  bar swaybar_command waybar

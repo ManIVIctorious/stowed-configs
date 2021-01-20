@@ -1,0 +1,23 @@
+## Keyboard config
+#---------------------------------------------------------------------------------
+# switch between keyboard layouts using <shift-caps>
+#   (more information in man 7 xkeyboard-layouts)
+input * {
+    xkb_layout  "de,us,it"
+#   xkb_variant "nodeadkeys"
+# caps:escape_shifted_capslock  make capslock an additional esc,
+#                               shift+capslock = capslock
+# grp:shifts_toggle     simultanesously pressing both shift keys switches kb-layout
+# numpad:mac            never disable numpad, no matter the numlock state
+# caps:none             disable capslock
+    xkb_options "caps:escape_shifted_capslock,grp:shifts_toggle,numpad:mac"
+    xkb_numlock "enable"
+}
+
+# enable touchpad
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    dwt enabled
+    tap enabled
+    natural_scroll disabled
+    middle_emulation enabled
+}

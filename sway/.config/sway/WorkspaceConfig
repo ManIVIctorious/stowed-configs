@@ -1,0 +1,45 @@
+## Workspace config:
+#---------------------------------------------------------------------------------
+# define left and right monitor
+set $LeftOutput  HDMI-A-1
+set $RightOutput eDP-1
+
+# set position of monitors
+output $LeftOutput  pos    0 0
+output $RightOutput pos 1920 0
+
+# toggle screen activation state with <mod-F4/F5> for left/right output
+bindsym $mod+F4 output $LeftOutput  toggle
+bindsym $mod+F5 output $RightOutput toggle
+
+# set ctrl+alt+down/up to rotate the internal screen clockwise/anticlockwise
+bindsym ctrl+alt+Down exec swaymsg output eDP-1 transform 90 clockwise
+bindsym ctrl+alt+Up   exec swaymsg output eDP-1 transform 90 anticlockwise
+
+# switching to workspace twice switches back
+workspace_auto_back_and_forth yes
+
+# toggle between last two workspaces via mod+c
+bindsym $mod+tab workspace back_and_forth
+
+# switch to next/previous workspace via ctrl+alt+<left>/<right>
+bindsym ctrl+alt+Left  exec swaymsg workspace prev
+bindsym ctrl+alt+Right exec swaymsg workspace next
+
+# make floating windows sticky to the output (i.e. show on all workspaces)
+bindsym $mod+Shift+s sticky toggle
+
+# Bind workspaces to monitors and switch to first one afterwards
+workspace {
+     1 output $LeftOutput
+     2 output $LeftOutput
+     3 output $LeftOutput
+     4 output $LeftOutput
+     5 output $LeftOutput
+     6 output $RightOutput
+     7 output $RightOutput
+     8 output $RightOutput
+     9 output $RightOutput
+    10 output $RightOutput
+}
+workspace 1
