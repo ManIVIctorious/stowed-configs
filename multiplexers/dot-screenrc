@@ -1,0 +1,15 @@
+# don't display startup message
+startup_message off
+
+# start at window 1 (instead of 0)
+bind c screen 1
+bind ^c screen 1
+bind 0 select 10                                                            
+screen 1
+
+# allow scrolling with mouse wheel (instead of accessing history)
+termcapinfo xterm* ti@:te@
+
+# set the hardware status line
+hardstatus alwayslastline
+hardstatus string '%{= kg}[ %{kG}%H %{kg}][%= %{kW}%?%-Lw%?%{kW}(%{kR}%n*%f%t%{kW})%?%{kW}%+Lw %=%{kg}][ %{ky}Load: %l %{kg}][ %{kB}%d. %M %Y %{kW}%c:%s %{kg}]'
