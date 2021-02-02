@@ -1,0 +1,9 @@
+[Nemo Action]
+Active=true
+Name=Datei drucken
+Exec=<Print.sh "libreoffice --headless --pt" %F>
+Icon-Name=printer
+Selection=notnone
+Mimetypes=application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.spreadsheet;application/vnd.oasis.opendocument.presentation;application/vnd.openxmlformats-officedocument.wordprocessingml.document;
+Quote=double
+Dependencies=libreoffice;zenity;

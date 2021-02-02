@@ -1,0 +1,9 @@
+[Nemo Action]
+Active=true
+Name=Konvertiere zu Png
+Exec=vec2ras %F
+Icon-Name=folder
+Selection=notnone
+Mimetypes=application/pdf;application/postscript;image/svg+xml;image/x-eps;
+Dependencies=convert;vec2ras;
+Quote=double

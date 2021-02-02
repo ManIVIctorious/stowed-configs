@@ -1,0 +1,9 @@
+[Nemo Action]
+Active=true
+Name=Datei drucken
+Exec=<Print.sh "lpr -P" %F>
+Icon-Name=printer
+Selection=notnone
+Mimetypes=text/plain;application/postscript;application/pdf;
+Quote=double
+Dependencies=lpr;zenity;

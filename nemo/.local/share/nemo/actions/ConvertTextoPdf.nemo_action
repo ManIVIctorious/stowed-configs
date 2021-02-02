@@ -1,0 +1,9 @@
+[Nemo Action]
+Active=true
+Name=Erzeuge Pdf
+Exec=<ConvertTex.sh "pdflatex -synctex=1" %F>
+Icon-Name=pdf
+Selection=notnone
+Mimetypes=text/x-tex;
+Quote=double
+Dependencies=pdflatex;

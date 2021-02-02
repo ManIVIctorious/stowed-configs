@@ -1,0 +1,11 @@
+[Nemo Action]
+Active=true
+Name=In Eps-Datei umwandeln
+Exec=<ConvertAgrPlot.sh "EPS" %P %F>
+#Exec=xmgrace -hdevice "EPS" -hardcopy %F
+Icon-Name=xmgrace
+Selection=notnone
+Extensions=agr;
+Mimetypes=application/grace;
+Quote=double
+Dependencies=xmgrace;

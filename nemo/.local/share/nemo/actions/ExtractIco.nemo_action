@@ -1,0 +1,9 @@
+[Nemo Action]
+Active=true
+Name=Extract Icon
+Exec=wrestool -x --output=%P --type=14 %F
+Icon-Name=application-x-ms-dos-executable
+Selection=notnone
+Extensions=exe;msi;
+Quote=double
+Dependencies=wrestool;

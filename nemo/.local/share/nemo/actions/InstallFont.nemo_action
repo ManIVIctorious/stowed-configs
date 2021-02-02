@@ -1,0 +1,10 @@
+[Nemo Action]
+Active=true
+Name=Schriftart installieren
+Exec=<InstallFont.sh %F>
+#Exec=test -d .local/share/fonts || mkdir -p .local/share/fonts && cp Desktop/zenda.ttf .local/share/fonts
+Icon-Name=font
+Selection=notnone
+Mimetypes=application/x-font-otf;application/x-font-ttf;
+Quote=double
+EscapeSpaces=true

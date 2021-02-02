@@ -1,0 +1,9 @@
+[Nemo Action]
+Active=true
+Name=In AZW3 Umwandeln
+Exec=<ConvertEbook.sh azw3 %F>
+Icon-Name=audiobook
+Selection=notnone
+Mimetypes=application/epub+zip;application/x-cbz;application/x-cbr;
+Quote=double
+Dependencies=ebook-convert;
