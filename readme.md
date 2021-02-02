@@ -18,9 +18,9 @@ of a hidden file to "dot-" within the repository, e.g. applying
 
 on the direcory
 
-  bash
-  ├── dot-bashrc
-  └── dot-inputrc
+    bash
+    ├── dot-bashrc
+    └── dot-inputrc
 
 creates the two symlinks ".bashrc" and ".inputrc" to the
 repository's parent directory.
