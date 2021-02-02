@@ -1,0 +1,28 @@
+
+
+# make ls command respect the .hidden file
+function ls {
+  declare -a args             # declare array args
+  local lscmd="$(which ls)"   # define ls-command
+
+# if .hidden file exists populate args array with its lines
+# (each line gets added as --hide $line)
+  if [ -r ".hidden" ]; then
+    local line
+    while IFS= read -r line; do
+      args+=("--hide")
+      args+=("$line")
+    done < ".hidden"
+  fi
+
+# ensure files/directories are only hidden when
+# listing files in the current working directory
+  for i in "$@"; do
+  # skip over flags (starting with "-")
+    if [[ $i = -* ]]; then continue; fi
+  # if a path outside of pwd is given don't hide files
+    if [ -d "${i%/*}" ]; then args=(); fi
+  done
+
+  command "${lscmd}" "${args[@]}" "$@"
+}

@@ -1,0 +1,17 @@
+
+# set up environment
+set -a
+for i in ${HOME}/.config/environment.d/*.conf; do
+  source "${i}"
+done
+set +a
+
+# run sway if logged in on tty1
+if [ "$(tty)" = "/dev/tty1" ]; then
+    if [ -f "/usr/bin/sway" ]; then
+    # set backends to wayland
+        export QT_QPA_PLATFORM=wayland
+        export SDL_VIDEODRIVER=wayland
+        exec sway
+    fi
+fi

@@ -1,0 +1,13 @@
+
+
+# Print supported colors
+# usage:    printcolors
+function printcolors {
+  local C=""
+  for C in {0..255}; do
+    tput setaf $C
+    echo -n "$C "
+  done
+  tput sgr0
+  echo
+}

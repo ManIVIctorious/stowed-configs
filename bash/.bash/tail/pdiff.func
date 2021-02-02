@@ -1,0 +1,9 @@
+
+
+# pdiff - pager-diff
+# enable color output in diff and pipe it into less
+#   if the output does not fit onto screen
+# usage:    pdiff <file1> <file2>
+function pdiff {
+    diff --color=always "$@" | less -RFX
+}

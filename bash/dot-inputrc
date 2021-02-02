@@ -1,0 +1,70 @@
+#set editing-mode emacs
+#set editing-mode vi
+
+set meta-flag    on
+set input-meta   on
+set convert-meta off
+set output-meta  on
+set completion-ignore-case off
+
+## Hint:
+#--------------------------------------------------------------------------------
+# To list all set keyboard shortcuts the following command can be used
+#
+#       bind -p | grep -v '^#\|self-insert\|^$'
+#
+# This command only lists the keymap of the momentary input mode (e.g. vi-insert),
+# to list bindings for other modes (e.g. vi-command, emacs) the command must be
+# executed in this respective mode (write command, <Esc><CR>)
+#
+# The character code can be determined via the read command:
+#
+#       read\n <keybinding>
+#
+# e.g. read\n <PgUp> returns ^[[5~ which can be used here as \e[5~
+
+# Keymaps for VI-Mode
+$if mode=vi
+# Keymaps for Command-Mode
+set keymap vi-command
+# set History search for <PageUp> and <PageDown>
+"\e[5~":   history-search-backward
+"\e[6~":   history-search-forward
+# set <C-leftarrow> <C-rightarrow> for wordwise jump
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word
+# autocomplete with <shift>-<tab>
+"\e[Z":    menu-complete
+# Insert the parameters from the last command with P
+"P": "i !!*\r"
+
+# Keymaps for Insert-Mode
+set keymap vi-insert
+# set History search for <PageUp> and <PageDown>
+"\e[5~":   history-search-backward
+"\e[6~":   history-search-forward
+# set <C-leftarrow> <C-rightarrow> for wordwise jump
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word
+# Clear Screen with <C-l>
+"\C-l":    clear-screen
+# autocomplete with <shift>-<tab>
+"\e[Z":    menu-complete
+$endif
+
+# Keymaps for emacs mode
+$if mode=emacs
+"\e[1~":   beginning-of-line
+"\e[4~":   end-of-line
+"\e[5~":   history-search-backward
+"\e[6~":   history-search-forward
+"\e[7~":   beginning-of-line
+"\e[3~":   delete-char
+"\e[2~":   quoted-insert
+"\e[5C":   forward-word
+"\e[5D":   backward-word
+"\e\e[C":  forward-word
+"\e\e[D":  backward-word
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+$endif
