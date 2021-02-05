@@ -1,0 +1,823 @@
+Modal editing:
+
+In contrast to most other text editor Vim is a so-called modal editor, which means it multiple "modes" exist in which different keystrokes have different consequences:
+
+From Wikipedia:
+
+Vim has 12 different editing modes, 6 of which are variants of the 6 basic modes.
+The basic modes are:
+#{{{
+
+  Normal mode
+    used for editor commands.
+    This is also the default mode, unless the insertmode option is specified.
+
+  Visual mode
+    similar to normal mode, but used to highlight areas of text.
+    Normal commands are run on the highlighted area, which for an instance can be used to move or edit a selection.
+
+  Select mode
+    works similarly to visual mode.
+    However, if a printable character, carriage return, or newline (or line feed) is entered, Vim inserts the character, and starts insert mode.[34]
+
+  Insert mode
+    similar to editing in most modern editors.
+    In insert mode, buffers can be modified with the text inserted.
+
+  Cmdline mode
+    supports a single line input at the bottom of the Vim window.
+    Normal commands (beginning with :), and some other specific letters corresponding to different actions (including pattern search / and the filter command) activate this mode.
+
+  Ex mode
+    similarly to Cmd mode, it takes a single line input at window bottom
+    However, in Cmdline mode, entering a command exits the mode when the command is executed. Entering a command in Ex mode doesn't cause the mode to change.
+
+#}}}
+
+
+Normalmode (reachable from all modes by hitting escape (<Esc>))
+
+    The normal mode is the default editing mode of Vim. The mode is used to edit/change pre-existing text and is by far the most versatile mode of the editor. Besides representing the junction to all different modes it consists of a huge amount of keyboard shortcut. A vast majority of all keyboard buttons acts as shortcut in this mode.
+
+#{{{
+
+
+  Switching to other modes:
+  #{{{
+
+    To insert mode:
+
+        i           switch to insert mode before cursor
+        I           switch to insert mode at beginning of line (same as ^i)
+        gi          switch to insert mode at the position it was left
+                    the last time in the current buffer
+        gI          switch to insert mode in column 1 (same as 0i)
+        a           switch to insert mode "after cursor"
+        A           switch to insert mode "after line"
+        o           open new line below current cursor position
+        O           open new line above current cursor position
+        s           substitute a single character
+        S           substitute a single line
+        c{movement} change text selected by {movement}
+        C           change text until end of line
+
+    To replace mode:
+
+        R       Similar to insert mode, but in overwriting pre-existing text
+
+    To visual mode:
+
+        v       Character visual mode
+        V       Line-wise visual mode
+        <C-v>   Block-wise visual mode
+
+    To command mode:
+
+        :       Jumps to command line at the bottom of the window
+
+  #}}}
+
+
+  Movement/Navigation commands:
+  #{{{
+
+    Besides the arrow keys a distinct feature of Vim are the additional movement commands. All movements can be preceded by a number n, executing them n-times, e.g. 5l moves five characters to the right, 2/foo<CR> searches for the second occurrence of "foo" from the current cursor position. These multipliers can also be used on many other commands, e.g. "5itest " results in "test test test test test ".
+
+        h       move cursor one char to the left
+        j       move cursor one line down
+        k       move cursor one line up
+        l       move cursor one char to the right
+
+        w       to beginning of next word
+        e       to end of current word (subsequently end of next words)
+        b       to the beginning of the current (subsequently previous wrords)
+        %       find the next item in the line and jump to its match
+                items can be:   (,[,{,},],),/*,*/,#if,#ifdef,#else,#elif,#endif
+                                for other items the matchit plugin can be used.
+
+        ^       to first non-white-space character of line
+        0       to beginning of line
+        $       to end of line
+
+        '<mark> jump to line in which <mark> is set
+        `<mark> jump to position of <mark> (line & column)
+          A mark can be set by hitting m and one out of [a-z]
+          ma sets the "a" mark which can be reached by hitting "`a"
+
+        gg      go to first line
+        G       go to last  line
+        ngg     go to nth line (same as nG)
+        nG      go to nth line (same as ngg)
+
+        f<char> to     next     occurrence of <char> in current line
+        F<char> to     previous occurrence of <char> in current line
+        t<char> before next     occurrence of <char> in current line
+        T<char> after  previous occurrence of <char> in current line
+      Repeatable: f,F,t,T can be redone by hitting "," or ";"
+            (e.g. "fx;" jumps to the next x in current line and ";" to the one thereafter)
+
+        /<regex>[/] search in forward  direction for next occurrence of <regex>
+        ?<regex>[?] search in backward direction for next occurrence of <regex>
+        //          repeat last forward  search
+        ??          repeat last backward search
+        *           search for the word currently below cursor (in forward direction)
+        #           search for the word currently below cursor (in backward direction)
+      Repeatable: /,?,*,# can be redone by hitting "n" or "N"
+            (n to next / N to previous match in case of forward search (i.e. *))
+
+        H       to top most line of current view (nH to n-th line of current view)
+        M       to  middle  line of current view
+        L       to  bottom  line of current view (nB to n-th last line)
+
+        <C-b>   one page up
+        <C-f>   one page down
+        <C-u>   half page up
+        <C-d>   half page down (careful, remapped to quit!)
+
+        )       jump to next     sentence  (:h text-objects, sentence)
+        (       jump to previous sentence  (:h text-objects, sentence)
+        }       jump to next     paragraph (:h text-objects, paragraph)
+        {       jump to previous paragraph (:h text-objects, paragraph)
+        ]]      jump to next     section   (:h text-objects, section)
+        [[      jump to previous section   (:h text-objects, section)
+
+  #}}}
+
+
+  Objects (:h text-objects):
+  #{{{
+
+    The basic Vim language is of the form {verb} {movement}. While this is quite useful on its own Vim additionally defines text-objects. Whith these the vim language can be described as {verb} {movement} or {object} (i.e. do something until where/with).
+    In contrast to {movement} commands, {objects} don't work on its own, they have to be applied to a command (verb).
+    e.g.
+        "diw"   delete inner word
+        "daw"   delete   a   word
+        "diW"   delete inner WORD (see |WORD|)
+        "daW"   delete   a   WORD (see |WORD|)
+        "dib"   delete inner '(' ')' block
+        "dab"   delete   a   '(' ')' block
+        "diB"   delete inner '{' '}' block
+        "daB"   delete   a   '{' '}' block
+        "dis"   delete inner sentence
+        "das"   delete   a   sentence
+        "dip"   delete inner paragraph
+        "dap"   delete   a   paragraph
+        "dgn"   delete  the  next search pattern match
+        "dd"    delete  one  line
+
+    Of course "d" in above examples can be substituted by the likes of y, c or v.
+
+  #}}}
+
+
+  Tags (:h tags):
+  #{{{
+
+    A tag is an identifier that appears in a "tags" file. It is a sort of label that can be jumped to. For example: In C programs each function name can be used as a tag.
+    The "tags" file has to be generated by a program like ctags, before the tag commands can be used.
+
+        g<LeftMouse>    Jump to definition of the keyword under the cursor
+        <C-LeftMouse>   (same as ":tag {name}", where {name} is the keyword under cursor)
+        <C-]>           When there are several matching tags for {name},
+                        jump to the [count one] (when [count] is omitted jump to the first one)
+
+    Every jump to a tag is remembered on the tag stack (remembers which tags have been jumped to and from where). To pop the tag stack (jump to an older entry in the stack) the following commands can be used:
+
+        g<RightMouse>       Jump to [count] older entry in the tag stack (default 1)
+        <C-RightMouse>
+        <C-t>
+
+        :[count]po[p][!]    Jump to [count] older entry in the tag stack (default 1)
+        :[count]ta[g][!]    Jump to [count] newer entry in the tag stack (default 1)
+
+    Additionally, to get back the jump list <C-o> command can be used.
+
+    The tag-stack can be viewed by the :tags command
+
+        :tags       Show the contents of the tag stack.
+                    The active entry is marked with a '>'.
+
+
+  #}}}
+
+
+  Marker:
+  #{{{
+
+    Often it is necessary to leave the momentary position (line & column). To resume work on this position one can set a marker.
+
+        m[a-z]      set a marker to current position (e.g. ma)
+        '<marker>   jump to the line in which the marker is set (e.g. 'a)
+        `<marker>   jump to the exact position (line & column) the marker is set (e.g. `a)
+
+    Besides just resuming work jumping to a marker is a valid navigation command and can therefore be used with any other command that requires a movement. Markers can also be used for defining ranges in command mode.
+
+  #}}}
+
+
+  Jumplist:
+  #{{{
+
+    Some of above mentioned navigation commands are recorded in the so-called jumplist (accessible by :jumps). Whenever one of the following commands is used
+
+        "'", "`", "G", "/", "?", "n", "N", "%", "(", ")", "{", "}", "[[", "]]", "L", "M", "H", ":s", ":tag" and the commands that start editing a new file.
+
+    The position before the jump gets recorded in the jumplist and commands to access these positions are provided:
+
+        <C-o>   jumps to previous position
+        <C-i>   jumps to next     position
+  #}}}
+
+
+  Copy, paste, delete:
+  #{{{
+
+    As already mentioned Vim's normal mode is full of keyboard shortcuts. Besides the ones already mentioned the following very useful text editing commands are available.
+
+        r<character>    replace the character below the cursor with <character>
+                        (in visual mode all selected characters are replaced)
+
+        x               delete character below current selection
+
+        y<movement>     yank from current position to end of movement
+                        (e.g. y$ to copy until end of line, yw to copy one word, etc.)
+        yy              yank current line
+        Y               yank current line (careful, remapped to y$)
+
+        d<movement>     delete from current position to end of movement
+        dd              delete current line
+        D               delete from current position to end of line
+
+        p               paste after  current cursor position
+        P               paste before current cursor position
+
+    Note: Vim doesn't really have a concept of deleting, d[elete] and x actually perform a cut operation.
+
+    All copy (yank) and cut (c, d, x, etc.) operations can be preceded by a so-called register. Vim provides 26 general purpose registers ("a to "z, accessible via the preceded double quotes).
+    e.g.
+            "ay$    copy from current cursor position to the end of the line
+                    and store the copied text to the "a register.
+
+    These registers (text storages) can then e.g. be accessed by the paste command
+
+            "ap     pastes the contents of register "a before the current cursor position
+
+    When yanking without specifying a register the special "0 register is used, delete on the other hand uses the "1 register per default.
+    As default the paste operation uses whichever of these two has the more recent entry, but the other one (and all other text registers) can be accessed by preceding their address (e.g. "0p always pastes from yank register)
+
+    "+ and "* registers:
+    An X11-aware Vim provides the two selection registers PRIMARY ("*) and CLIPBOARD ("+).
+    Most applications provide their current selection via PRIMARY "* and use CLIPBOARD "+ for cut/copy/paste operations. I.e. "* represents X11 mouse selection and "+ represents copies/cuts. Therefore,
+
+        "*p     pastes the current mouse selection after the cursor
+        "+P     pastes the current clipboard content before the cursor
+
+  #}}}
+
+
+  Undo/Redo:
+  #{{{
+
+    While most editors provide a basic undo/redo mechanism, these are often limited. For example, when on state y undoing it to reach state x and performing some changes to end up in state z, state y is not accessible any more.
+
+    Vim circumvents this problem by instead of maintaining a linear undo history, storing it in a tree structure and providing two distinct command groups to access it:
+
+      Undo and Redo, traversing the tree in most recent order (similar to most editors)
+
+        u       undo: one step back (or n with preceding number)
+        <C-r>   redo: redo last (n) change(s)
+
+      Earlier and later, traversing the tree in chronological order
+
+        g-      earlier: one step back    in time
+        g+      later:   one step forward in time
+
+
+    Of course this "Vim-time-machine" is also accessible via command mode:
+
+        :u[ndo]  [changes]      undo, :undo 5 would jump back 5 changes on main branch
+        :red[o]  [changes]      redo, used same as undo
+        :earlier [time,count]   back to an earlier moment in time
+                                the moment can be either specified as a number (n changes back in time) or as a timespan, e.g. 15s (15 second back) the command understands the following suffixes: s, m, h, d
+        :later   [time,count]   reverse of :earlier, used in the same way
+        :undolist               lists the undotree (not very human readable)
+
+  #}}}
+
+
+  Macros:
+  #{{{
+
+    Vim enables to record a set of commands and its re-execution by the @ command. The @ command takes the content of a register {0-9a-z".=*+} and executes it as if its content would be a set of vim commands.
+    Since it would be tedious to write these commands by hand and storing them in a register vim provides the q command.
+
+        q[a-z]  start recording mode, to exit recording mode q has to be pressed again.
+        qa      records all subsequent commands to the "a register.
+
+    E.g. hitting the character sequence "qaviwr_jq" in normal mode is equivalent to writing "viwr_j" (without the quotes) and storing it in the "a register (e.g. by "adiw).
+    The content of the corresponding register can then be executed by
+
+        @[a-z]  execute register content
+
+    The example macro shown above does:
+        qaviwr_jq
+        qa          start macro recording mode to register "a
+          viwr_j    the to-be-executed macro
+          v         change in visual mode
+           iw       "inside word" select word
+             r_     replace selection with "_"
+               j    go one line down
+                q   quit macro recording mode
+
+  #}}}
+
+
+  Misc:
+  #{{{
+
+    ~   change case of character below cursor
+    >>  shift one 'shiftwidth' rightward (indent)
+    >>  shift one 'shiftwidth' leftward (de-indent)
+    gt  switch to next tab      (same as <C-PageDown>)
+    gT  switch to previous tab  (same as <C-PageUp>)
+
+  #}}}
+
+#}}}
+
+
+Command line mode (:h cmdline.txt)
+
+    As the name implies, the command line mode offers a vim specific command line with hundreds of commands. It is used to enter "Ex commands" (":"), search patterns ("/" and "?") as well as filter commands ("!").
+    Many of these commands can be entered in various different ways, e.g. with preceding ranges. The following list is by no way comprehensive and doesn't show all commands in their full feature set. To learn more of the individual commands vim's :help is your friend.
+    Like in setting preferences most Ex commands can be invoked by an abbreviated form, in the following parts of the command set in "[]" are optional.
+
+#{{{
+
+    :h[elp]     [item]      Open vim's comprehensive internal help
+                            e.g. ":h key-notation"  describes the names of keys used throughout the documentation.
+
+    :e[dit]     <file>      Open file in current buffer, non existent files will be created
+    :w[rite]    [file]      Write current buffer to file,
+                            if a filename is provided save to that instead
+    :r[ead] [++opt] [file]  Insert the content of [file] below the cursor
+    :r[ead] [++opt] !{cmd}  Execute {cmd} and insert its standard output below the cursor
+    :q[uit]                 Quit the current window and quit Vim if this is the last window
+                            This command fails when changes have been made since last write, to force quit it one can use :q[uit]!
+                            If there are other tab pages quitting the last window in the current tab page results in quitting the tab page itself.
+
+
+  Vim's view modes are hierarchical. Each open file has its own buffer, multiple buffers can be shown in a window (see window splits) and multiple windows can be used in a single session using tabs. Therefore, a tab is more of a layout and isn't necessarily linked to the open files.
+
+  Buffers:
+  #{{{
+
+    When a file is closed (:q), this only closes its view, the buffer is still accessible via the buffer list and buffer switch commands. To close a buffer (not its view) the buffer delete command can be used.
+
+        :ls         list open buffers
+        :b#         switch between the two last used buffers
+        :b[buffer]  switch to buffer <buffer>
+        :bn         switch to next buffer in list
+        :bp         switch to previous buffer in list
+        :bd[buffer] delete buffer <buffer>
+
+    The short-name [buffer] represents either the buffer's number (first column of :ls) or its name (second column of :ls).
+
+  #}}}
+
+
+  Window splits:
+  #{{{
+
+    :sp[lit]    [file]      Horizontally split the window.
+                            If a filename is given this file will be opened in the new split buffer, else the current open file will be duplicated.
+    :vsp[lit]   [file]      Split window vertically, else same as :split
+    :on[ly]                 Close all other window splits
+
+        Operations on split windows are preceded by <C-w>
+            "<C-w> ="       Make all sub windows the same size
+            "<C-w> _"       Maximise current sub window vertically
+            "<C-w> |"       Maximise current sub window horizontally
+            "<C-w> <C-w>"   Switch to next sub window (also "<C-w> w")
+            "<C-w> [hjkl]"  Switch one sub window [left(h),down(j),up(k),right(l)]
+                            Instead of hjkl the arrow keys can be used as well.
+            "<C-w> [HJKL]"  Move the current sub window [left(H),down(J),up(K),right(L)]
+            "<C-w> T"       Move current sub window to new tab
+  #}}}
+
+
+  Tab commands:
+  #{{{
+
+    :tabe[dit]  [file]      Open file in new tab
+    :tabm[ove]  [number]    If no number is given increment position in tablist
+                            If a number is provided move current tab to position <number> in tablist (counting starts at zero)
+    :tabc[lose]             Close current tab with all sub windows
+    :tabo[nly]              Close all other tabs
+
+        Tabs are individual pages containing views. To switch between tabs one can either use
+            Ex commands:            :tabn[ext]      next     tab
+                                    :tabp[revious]  previous tab
+
+            normal mode mappings:   gt              next     tab
+                                    gT              previous tab
+
+            insert/normal mappings: <C-PageDown>    next     tab
+                                    <C-PageUp>      previous tab
+
+  #}}}
+
+
+  Sessions and Views (:h views-sessions):
+  #{{{
+
+    :mks[ession][!] [file]  Write a Vim script that restores the current editing session
+                            When [!] is included an existing file is overwritten.
+                            When [file] is omitted "Session.vim" is used.
+    :mkvie[w][!]    [file]  Write a Vim script that restores current's window contents
+
+        To load a session file Vim can be invoked by "Vim -S [file]"
+        Views can also be loaded by the :lo[adview] [nr] ex command.
+
+  #}}}
+
+
+  Path operations:
+  #{{{
+
+    Navigate through directory trees.
+
+    :cd         Change directory
+    :ch %:p:h   Change to current file's parent directory (:h filename-modifiers)
+    :pwd        Print current working directory
+
+
+    Vim offers a rudimentary file explorer to navigate through directory trees.
+        %   create new file
+        R   rename file
+        D   delete file
+    The explorer can be opened by the following commands:
+
+        :e.     Open explorer in current buffer         (same as :E[xplore])
+        :sp.    Open explorer in horizontal split view  (same as :Sex[plore])
+        :vsp.   Open explorer in vertical split view    (same as :Vex[plore])
+
+  #}}}
+
+
+  Options:
+  #{{{
+
+    :opt[ions]              Open a window for viewing and setting all options.
+                            Options are grouped by function and shown alongside a short help text.
+
+    :mkv[imrc][!] [file]    Write current settings/options to <file>
+
+  #}}}
+
+
+  Search, global, substitute and ranges:
+  #{{{
+
+    A search in is invoked by "/" or "?" in forward or backward direction, respectively.
+    Besides exact matches, the search also understands an extended regular expression syntax (vide infra vim regex machine).
+    Regular expressions are also used in the three commands :s (substitute), :g (global) and :v (vglobal, not global).
+
+    Substitution:
+
+        :[range]s[ubstitute]/{pattern}/{string}/[flags] [count]
+
+      For each line in [range] (no range == current line, % == whole file) replace a match of {pattern} with {string}. The {pattern} here is regular expression, while {string} can be either a literal string, or something special. (see :h sub-replace-special).
+
+      The range is a comma separated tuple of start- and end-line, for all commands accepting ranges start- and end-line can be given in one of the following ways:
+
+        {number}        an absolute line number
+        .               the current line (implied most of the time)
+        $               the last line in the file
+        %               the entire file (equal to 1,$)
+        't              position of mark t (lowercase)
+        'T              position of mark T (uppercase)
+        /{pattern}[/]   the next line where {pattern} matches
+        ?{pattern}[?]   the previous line where {pattern matches}
+        \/              the next line where the previously used search pattern matches
+        \?              the previous line where the previously used search pattern matches
+        \&              the next line where the previously used substitute pattern matches
+
+      Additionally, a visual selection can be used to define a range. This is indicated by the range '<,'> automatically inserted when switching into command mode from visual selection.
+
+      Instead of "/", any other non alphabetic single byte character can be used to encapsulate the search pattern (e.g. :s+/path/to/\(file\)+\1+g is a valid substitution pattern).
+
+      Some examples of substitution flags are:
+          g   global (substitute all entries in a line instead of just the first match)
+          c   confirm (interactive confirmation dialogue on each change)
+          i   ignore case for the pattern
+          I   don't ignore case for the pattern
+          n   dry-run, just report number of matches, don't substitute
+      For more information see :h :s_flags
+
+      When [count] is given replace in [count] lines, starting with the last line in range.
+
+      Examples:
+
+        :%s/\s*$//            remove all trailing white spaces
+        :%s/^\s*//            remove all leading  white spaces
+
+    Global (:g) and Vglobal (:v):
+
+      The global and vglobal commands have a very similar syntax to the substitution command. Instead of a substitution they are followed by an ex command which is applied on the matching lines.
+      Commands following :g are applied to all lines in which the matching pattern is found, commands following :v are applied to all lines in which the pattern is not presented. They can also be combined.
+
+        :[range]g[lobal]/{pattern}/[cmd]
+        :[range]v[global]/{pattern}/[cmd]
+
+      [range] and {pattern} follow the same syntax as in the substitution case, while [cmd] can be any valid ex command (:h ex-cmd-index)
+
+      Examples:
+
+        :%g/foo/y       copy (y) all lines containing "foo"
+        :%g/foo/m$      move all lines containing "foo" to the last line
+        :%g/foo/t$      copy all lines containing "foo" to the last line
+        :%g/^\s*$/d     delete (d) all empty lines
+        :%g/^  /-1j     join (j) all lines starting with two spaces to their predecessor
+                        (sometimes useful to join bullet lists)
+
+        The commands can also be chained together, e.g.
+
+          :%g/foo/v/bar/s/foo/foobar/gc
+           %                                set range to whole file
+            g/foo/                          select all lines containing "foo"
+                  v/bar/                    unselect lines containing "bar"
+                        s/foo/foobar/       substitute "foo" to "foobar"
+                                     g      replace all occurrences in the line
+                                      c     before replace issue a confirmation dialogue
+
+  #}}}
+
+  Filter:
+  #{{{
+
+    A filter is a program that accepts text at standard input, changes it in some way, and sends it to standard output. The filter command "!" can be used to send some text through a filter, so that it is replaced by the filter output.
+    Examples of filters are "sort", which sorts lines alphabetically and "indent", which formats C program files.
+    Filter commands are repeatable by the dot macro ".".
+    Vim does not recognize a comment (starting with '"') after the `:!` command.
+
+        :{range}![!]{filter} [!][arg]
+
+    Vim replaces the optional bangs with the latest given command and appends the optional [arg]. Vim saves the output of the filter command in a temporary file and then reads the file into the buffer |tempfile|.
+    Vim uses the 'shellredir' option to redirect the filter output to the temporary file.  
+
+    Examples:
+
+      :'<,'>!sort       send the current selection to the sort command and
+                        replace it with sort's output.
+
+      :[range]w[rite] [++opt] !{cmd}    Execute {cmd} with [range] lines as standard input
+                                        (note the space in front of the '!').
+                                        {cmd} is executed like with ":!{cmd}", any '!' is replaced with the previous command |:!|.
+
+      :w ! sudo tee %   write the current file to elevated privileged tee (sudo tee).
+                        the % sign is expanded to the current file name.
+                        This command allows to write a file with root privileges (provided the user has the required rights) even when Vim is not run as root.
+
+  #}}}
+
+
+  Misc:
+  #{{{
+
+    :ec[ho]     <string>    Print <string> on command line
+
+    :ret[ab] [new_tabstop]  Replace all sequences of white-space containing a <Tab>.
+                            If the new_tabstop value is given, <Tab> will be replaced with it. Else vim uses the current value of 'tabstop'.
+
+
+  #}}}
+
+#}}}
+
+
+Insert mode (reachable from normal mode via a,A,i,I,o,O,s and S)
+
+    The insert mode is used for simple text writing. The many different ways of accessing it are powerful navigation shortcuts:
+
+#{{{
+
+        i           switch to insert mode before cursor
+        I           switch to insert mode at beginning of line
+        a           switch to insert mode "after cursor"
+        A           switch to insert mode "after line"
+        o           open new line below current cursor position
+        O           open new line above current cursor position
+        s           substitute a single character
+        S           substitute a single line
+        c{movement} change text selected by {movement}
+        C           change text until end of line
+
+    If accessed from visual mode I and A switch to insert mode before and after selection, respectively. While s and c substitute/change the whole selection.
+
+    In case of visual block mode c, I and A enable for block-wise editing (writing on multiple lines simultaneously) here c substitutes the block while I and A write before/after the block selection.
+
+    A switch to insert mode (do something) and back to normal mode counts as an atomic operation. It can be repeated by the dot (.) makro, undone by a single undo (u) or executed multiple times by prepending a number to the respective command,
+    e.g.
+            5itest <Esc>    results in:     test test test test test 
+
+#}}}
+
+
+Visual mode (reachable from normal mode via v, V and <C-v>)
+
+    The visual mode is used for selecting and subsequent editing of text.
+
+#{{{
+
+    Like in the normal mode the same navigation commands can be used.
+
+    The three visual modes:
+
+        v       Character visual mode
+                Similar to the text selection in most other editors, it starts at one character and ends on a different one, nothing special here.
+
+        V       Line-wise visual mode
+                The visual mode only applies to whole lines.
+
+        <C-v>   Block-wise visual mode
+                Block selection starting from column a to column b (with a < b) without including any characters in columns before a or after b.
+                Block selection can also be used for block-wiser insertion using I or A (insert before/after block). While writing the insertion will only take effect on the first selected line, after hitting <Esc> it will be applied to the remaining lines.
+
+    In visual mode one can always change from one "view" to another by hitting the respective commands (when in line-wise visual mode and hitting control+v (<C-v>) one will end up in visual block mode with the same two anchor points)
+
+    In normal mode the last selection can always be recovered by "gv"
+
+    A speciality of Vim is its ability to change the selection at any given time.
+    When a range is selected it can be extended further/reduced form the current cursor position by usage of any valid navigation command.
+    e.g.
+        Having selected 5 lines via "V" one can move the cursor in the 5th line upwards/downwards using k/j.
+
+    While this is possible in most editors it is also possible to move the first selected line. This is achieved by the "o" command, where o stands for "opposite". In visual mode this command moves the cursor from one anchor point of the selection to the other (first character / last character).
+
+#}}}
+
+
+Vim's regex-search engine (partially taken from http://www.vimregex.com):
+
+Basic search syntax:
+    To search from the current cursor position in forward direction the "/" operator is used. Searching backwards can be achieved using the "?" operator.
+
+#{{{
+
+    Per default vim's search is case sensitive (turned off by :set ignorecase/smartcase).
+    To exclude case folding from a search pattern prepend '\c' to the pattern:
+        /\c<regex>/   ignore case
+        /\C<regex>/   match case
+
+  Offsets:
+    Per default the search command leaves the cursor positioned on the beginning of the pattern. By using offsets vim can be told to leave it on other places.
+
+        e.g.    /default/2  searches for the pattern "default" and then moves to
+                            the beginning of the second line after the pattern
+
+    The "e" offset indicates an offset from the end of the match
+        /const/e    cursor on the "t" of the word const
+        /const/e+1  cursor after the word const
+        /const/e-1  cursor on the "s" of the word const
+
+    The "b" offset on the other hand moves the cursor to the beginning of the pattern
+        /const/b+2  cursor on the "o" of the word const
+
+    To repeat a previous forward search use "//", this can also be used in conjunction with a different offset, e.g. /that //e
+
+#}}}
+
+
+Search quantifiers:
+    Search quantifiers are used to match the same item multiple times.
+    They only apply to the item directly before itself, e.g. ab* matches a, ab, abb,...
+    The use of the "\" before items in depends on the 'magic' option (:h magic).
+
+#{{{
+
+  Matching multiple times:
+    *         matches 0 or more of the preceding item (same as \{0,})
+    \+        matches 1 or more of the preceding item (same as \{1,})
+    \=        matches 0 or 1    of the preceding item (same as \{0,1})
+
+  Exact counts:
+    \{n,m}    matches from n to m     of the preceding item
+    \{n}      matches exactly n times of the preceding item
+    \{,m}     matches 0 to m          of the preceding item
+    \{n,}     matches n or more       of the preceding item
+
+    e.g.:
+        /ab\{1,3}   will match "abbb" in "abbbb"
+
+  Matching as little as possible:
+    \{-}      matches 0 or more of the preceding item, as few as possible
+    \{-n,m}   matches 1 or more       of the preceding item
+    \{-n,}    matches at lease or more of the preceding item
+    \{-,m}    matches 1 or more of the preceding item
+
+    e.g.:
+        /ab\{-1,3}  will match "ab" in "abbbb"
+        /a.\{-}b    will match "axb" in "axbxb" (/a.*b would match "axbxb" as a whole)
+
+#}}}
+
+
+Alternatives:
+    Sometimes multiple possibilities within a pattern have to be considered.
+
+#{{{
+
+The "OR" operator in a pattern is "\|"
+
+        e.g. /one\|two\|three  matches "one", "two" or "three"
+
+    To match multiple times thw whole thing must be placed in "\(" and "\)"
+
+        e.g. /\(foo\|bar)\+     matches "foo", "foobar", "barfoobar", etc.
+
+Character ranges:
+
+    The [] construct matches a single character. Inside you specify which characters to match.
+
+        e.g.
+            /[abc]              matches "a", "b" or "c"
+            /[0123456789abcdef] will match any of the characters included
+
+    For consecutive characters the range can be specified as well:
+
+        e.g.    /[0-9a-f]
+
+    To match the "-" character itself make it the first or last one in the range.
+
+    The following special characters are accepted in a [] range (they can actually be used anywhere in the search pattern):
+
+            \e  <Esc>
+            \t  <Tab>
+            \r  <CR>
+            \b  <BS>
+
+    A few more special cases for [] ranges exist (:h /[])
+
+Complemented ranges:
+
+    To avoid matching a specific character, use "^" at the start of the range.
+
+    e.g.    /"[^"]*"
+             "          a double quote
+              [^"]      any character that is not a double quote
+                  *     as many as possible
+                   "    a double quote again
+
+Predefined ranges
+
+    A number of ranges are used very often. Vim provides a shortcut for these:
+
+    .       any character except new line
+    \s      whitespace character        [	 ] (<Tab> and <Space>)
+    \S      non-whitespace character    [^	 ] (not <Tab> and <Space>)
+    \d      digit                       [0-9]
+    \D      non-digit                   [^0-9]
+    \x      hex digit                   [0-9a-fA-F]
+    \X      non-hex digit               [^0-9a-fA-F]
+    \o      octal digit                 [0-7]
+    \O      non-octal digit             [^0-7]
+    \w      word character              [0-9A-Za-z_]
+    \W      non-word character          [^0-9A-Za-z_]
+    \h      head of word character      [A-Za-z_]
+    \H      non-head of word character  [^A-Za-z_]
+    \a      alphabetic character        [a-zA-Z]
+    \A      non-alphabetic character    [^a-zA-Z]
+    \l      lowercase alpha             [a-z]
+    \L      non-lowercase alpha         [^a-z]
+    \u      uppercase alpha             [A-Z]
+    \U      non-uppercase alpha         [^A-Z]
+
+#}}}
+
+
+Character classes:
+
+    A character range matches a fixed set of characters. A character class is similar, but with an essential difference: The set of characters can be redefined without changing the search pattern.
+
+#{{{
+    E.g. search for the pattern:
+
+        /\f\+
+
+    The "\f" item tands for the file name characters. Thus this matches a sequence of characters that can be a filename. Which characters can be part of a file name depends on the system and is specified by the 'isfname' option.
+    The character classes are:
+
+        item    matches                         option ~
+        \i      identifier characters           'isident'
+        \I      like \i, excluding digits
+        \k      keyword characters              'iskeyword'
+        \K      like \k, excluding digits
+        \p      printable characters            'isprint'
+        \P      like \p, excluding digits
+        \f      file name characters            'isfname'
+        \F      like \f, excluding digits
+
+#}}}
+
+

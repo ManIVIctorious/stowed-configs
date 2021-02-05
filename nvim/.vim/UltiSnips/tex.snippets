@@ -1,0 +1,60 @@
+# To expand type the snippet keyword and press <Tab>
+# This will automatically create the snippet and jump to position $1
+# To traverse the list of positions (i.e. $2, $3,..., $0) in insert/select
+# mode use <c-j> and <c-k> for forward and backward direction, respectively.
+
+snippet "\\?b(egin|egi|eg|e)?" "begin{} / end{}" br
+\begin{${1:align}}
+  ${0:${VISUAL:% assertions}}
+\end{$1}
+endsnippet
+
+snippet "\\?fr(ac|a)?" "frac{}{}" rw
+\frac{${1:\text{Nominator}}}{${2:\text{Denominator}}}
+endsnippet
+
+snippet "fig(ure|ur|u)?" "Figure environment" br
+\begin{figure}[${2:htpb}]
+\centering
+  \includegraphics[width=${3:1.0}\textwidth]{${4:file}}
+  \caption{
+    $0
+  }
+  \label{fig:$4}
+\end{figure}
+endsnippet
+
+snippet "tab(ular|ula|ul|u)?" "tabular" br
+\begin{${1:tabular}}{${2:c}}
+  $0${2/(?<=.)(c|l|r)|./(?1: & )/g}\\\\
+\end{$1}
+endsnippet
+
+snippet "tabl(e)?" "Table environment" br
+\begin{table}[${1:htpb}]
+\centering
+  \caption{
+    ${2:caption}
+  }
+  \label{tab:${3:label}}
+  \begin{${4:tabular}}{${5:c}}
+    $0${5/(?<=.)(c|l|r)|./(?1: & )/g}\\\\
+  \end{$4}
+\end{table}
+endsnippet
+
+snippet "enum(erate|erat|era|er|e)?" "Enumerate" br
+\begin{enumerate}
+  \item $0
+\end{enumerate}
+endsnippet
+
+snippet "item(ize|iz|i)?" "Itemize" br
+\begin{itemize}
+  \item $0
+\end{itemize}
+endsnippet
+
+snippet "\\?it" "Individual item" br
+\item $0
+endsnippet
