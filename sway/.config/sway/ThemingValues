@@ -1,0 +1,9 @@
+## Set theming values
+#---------------------------------------------------------------------------------
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme    Breeze
+    gsettings set $gnome-schema icon-theme   Mint-Y
+    gsettings set $gnome-schema cursor-theme Adwaita
+}
