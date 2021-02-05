@@ -10,4 +10,6 @@ setlocal dictionary+=~/.vim/words/tex.dict
 
 "Display as much as possible of the last line in a window (:h 'display')
 setlocal display+=truncate
-setlocal suffixesadd=.tex,.sty
+
+"add file type expansion
+setlocal suffixesadd=.tex,.sty,.bib

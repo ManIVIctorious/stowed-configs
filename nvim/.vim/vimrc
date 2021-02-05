@@ -19,7 +19,7 @@ let mapleader = "\<Space>"  "set map leader
 ""An X11-aware Vim provides the two selection registers PRIMARY ("*) and CLIPBOARD ("+)
  "Most applications provide their current selection via PRIMARY "*
  "and use CLIPBOARD "+ for cut/copy/paste operations
- set clipboard=unnamedplus  "use CLIPBOARD register "+ for yank/delete/change/put operations
+  set clipboard=unnamedplus  "use CLIPBOARD register "+ for yank/delete/change/put operations
 
 "{{{ Settings
   set wrap           "wrap line at end of window
@@ -49,7 +49,7 @@ let mapleader = "\<Space>"  "set map leader
  "Show invisibles (e.g. tabs, EOL, etc.) (:h 'list') and provide a list of
  " displayed hidden characters and their accompanying symbols (:h 'listchars')
   set list
-  set listchars =tab:→→
+  set listchars =tab:--→
   set listchars+=nbsp:␣
   set listchars+=trail:•
   set listchars+=extends:⟩
@@ -86,8 +86,8 @@ let mapleader = "\<Space>"  "set map leader
  "Set number formats besides decimal, bin (0b), hex (0x), alpha [a-zA-Z]
   set nrformats=bin,hex,alpha
 
- "Allow sideways moving keys to move to the next/previous line
-  set whichwrap=b,s,[,]  "traverse line breaks with arrow keys
+ "List of sideways moving keys allowed to traverse line breaks
+  set whichwrap=b,s,[,]
 
  "Enable mouse usage (:h mouse)
   set mouse=a        "enable mouse selection in all modes as well as terminal
@@ -102,9 +102,9 @@ let mapleader = "\<Space>"  "set map leader
   " 5 -> blinking vertical bar
   " 6 -> solid vertical bar
   "}}}
-"  let &t_SI = "\<Esc>[5 q" "SI = INSERT mode
-"  let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
-"  let &t_EI = "\<Esc>[1 q" "EI = NORMAL mode (ELSE)
+  let &t_SI = "\<Esc>[5 q" "SI = INSERT mode
+  let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
+  let &t_EI = "\<Esc>[1 q" "EI = NORMAL mode (ELSE)
 "}}}
 "{{{ Add persistent undo and swapdir
  "persistent undo
@@ -135,6 +135,9 @@ let mapleader = "\<Space>"  "set map leader
 
  "copy whole content to clipboard
   nnoremap <leader>y    :%y+
+
+ "edit file in multiple columns
+  noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
 
  "evaluate expression with expression register
   nnoremap <leader>s 0yt=f=a<C-r>=<C-r>0<CR><Esc>
