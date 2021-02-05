@@ -1,0 +1,6 @@
+## Idle configuration
+#----------------------------------------------------------------------------------
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# lock screen via <C-A-l>
+bindsym $ctrl+$alt+l  exec loginctl lock-session

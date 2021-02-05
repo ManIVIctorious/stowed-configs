@@ -1,0 +1,42 @@
+# define title format
+for_window [title=".*"] title_format "%title (%shell)"
+
+## Per window rules:
+# get window information via: swaymsg -t get_tree
+#---------------------------------------------------------------------------------
+
+## Gnome Help (Yelp)
+# Make yelp windows floating
+for_window [app_id="yelp"] floating enable;
+
+## Firefox
+# Make firefox PIP mode floating
+# and visible on all workspaces (sticky to output)
+for_window [app_id="firefox" title="Picture-in-Picture"]\
+    floating enable;\
+    sticky enable;
+
+for_window [app_id="firefox" title="Bild-im-Bild"]\
+    floating enable;\
+    sticky enable;
+
+# make password dialogue floating
+for_window [app_id="firefox" title="[Pp]assword [Rr]equired.*"]\
+    floating enable;
+
+## Steam
+# Set fixed width for steam' friends list
+for_window [class="Steam" title="Friends List"]\
+    resize set width 15ppt;
+
+# Make steam News pup-ups floating
+for_window [class="Steam" title="Steam - News"]\
+    floating enable;
+
+# inhibit screen lock when a steam app is in focus
+for_window [class="steam_app*"] inhibit_idle focus
+
+
+# Make gnome-contacts floating
+for_window [app_id="gnome-contacts"]\
+    floating enable;

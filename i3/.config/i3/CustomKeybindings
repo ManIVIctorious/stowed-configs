@@ -1,0 +1,11 @@
+## Custom keybindings
+#-------------------------------------------------------------------------------
+# Power management
+  # systemctl poweroff via <mod-F12>
+  bindsym $mod+F12   exec systemctl poweroff
+
+  # systemctl suspend via <mod-Pause>
+  bindsym $mod+Pause exec systemctl suspend
+
+# start nemo file manager via <mod-n>
+bindsym $mod+n exec --no-startup-id nemo

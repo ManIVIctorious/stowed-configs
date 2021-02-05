@@ -1,0 +1,33 @@
+## Workspace config:
+#---------------------------------------------------------------------------------
+# define left and right monitor
+set $lmonitor HDMI-0
+set $rmonitor DVI-I-1
+
+# set position of monitors
+exec --no-startup-id xrandr --output $rmonitor --auto --right-of $lmonitor
+
+# switching to workspace twice switches back
+workspace_auto_back_and_forth yes
+
+# toggle between last two workspaces via mod+tab
+bindsym $mod+Tab workspace back_and_forth
+
+# switch to next/previous workspace via ctrl+alt+<left>/<right>
+bindsym $ctrl+$alt+Left  exec swaymsg workspace prev_on_output
+bindsym $ctrl+$alt+Right exec swaymsg workspace next_on_output
+
+# make floating windows sticky to the output (i.e. show on all workspaces)
+bindsym $mod+Shift+s sticky toggle
+
+# Bind workspaces to monitors
+workspace  1 output $lmonitor
+workspace  2 output $lmonitor
+workspace  3 output $lmonitor
+workspace  4 output $lmonitor
+workspace  5 output $lmonitor
+workspace  6 output $rmonitor
+workspace  7 output $rmonitor
+workspace  8 output $rmonitor
+workspace  9 output $rmonitor
+workspace 10 output $rmonitor

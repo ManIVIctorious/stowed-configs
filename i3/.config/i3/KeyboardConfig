@@ -1,0 +1,12 @@
+## Keyboard config
+#---------------------------------------------------------------------------------
+# switch between keyboard layouts using <shift-caps>
+#   (more information in man 7 xkeyboard-layouts)
+# caps:escape_shifted_capslock  make capslock an additional esc,
+#                               shift+capslock = capslock
+# grp:shifts_toggle     simultanesously pressing both shift keys switches kb-layout
+# numpad:mac            never disable numpad, no matter the numlock state
+# caps:none             disable capslock
+exec --no-startup-id setxkbmap\
+     -layout "de,us,it"\
+     -option "caps:escape_shifted_capslock,grp:shifts_toggle,numpad:mac"

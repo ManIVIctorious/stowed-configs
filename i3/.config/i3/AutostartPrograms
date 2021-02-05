@@ -1,0 +1,20 @@
+## Autostart programs
+#---------------------------------------------------------------------------------
+# run nm-applet
+  exec --no-startup-id nm-applet
+
+# redshift:
+  exec --no-startup-id redshift-gtk
+
+# Gnome Software background update
+  exec --no-startup-id gnome-software --gapplication-service
+
+# Geary mail program
+  exec --no-startup-id org.gnome.Geary --gapplication-service
+
+# Dropbox client
+  exec --no-startup-id com.dropbox.Client
+
+# run settings and notification daemons
+  exec --no-startup-id xsettingsd
+  exec --no-startup-id dunst
