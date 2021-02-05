@@ -19,7 +19,7 @@ shopt -s checkwinsize
 export HISTSIZE=500000
 export HISTFILESIZE=${HISTSIZE}
 export HISTCONTROL=ignorespace:erasedups
-export HISTIGNORE="ls:la:ll:lt:lla:ls *:la *:ll *:lt *:lla *:cd:top:\:*:make:make *:history"
+export HISTIGNORE="ls:la:ll:lt:lla:cd:top:\:*:make:history"
 
 # set the default prompt
 #   if previous command was successful display green ✓, else display red ✗
