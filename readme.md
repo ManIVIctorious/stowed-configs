@@ -5,7 +5,7 @@ The repository is managed by GNU Stow
 Each set of configuration files is stowed in its own directory
 and sub-directories. To "install" the configuration files use
 
-  stow --dotfiles <directory name> -t <target directory>
+    stow --dotfiles <directory name> -t <target directory>
 
 If the target directory is the repository's parent directory
 this flag can be omitted.
@@ -14,7 +14,7 @@ beginning with a period to ease the handling of hidden files.
 Utilising this flag enables to substitute the leading period
 of a hidden file to "dot-" within the repository, e.g. applying
 
-  stow --dotfiles bash
+    stow --dotfiles bash
 
 on the direcory
 
