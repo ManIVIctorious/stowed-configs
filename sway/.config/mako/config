@@ -1,6 +1,12 @@
 
+# information about the current notifications can be displayed
+# by the invocation of `makoctl list`
+
 [app-name=Firefox summary="Tab von Firefox auf Google Pixel 4a"]
 default-timeout=15000
 
 [app-name=Firefox summary="Tabs empfangen"]
 default-timeout=15000
+
+[app-name="Spotify"]
+default-timeout=10000
