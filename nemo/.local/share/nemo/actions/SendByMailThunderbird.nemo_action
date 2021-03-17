@@ -1,9 +1,0 @@
-[Nemo Action]
-Active=false
-Name=Per eMail versenden
-Exec=thunderbird -compose "attachment='%U'"
-Icon-Name=thunderbird
-Selection=notnone
-Extensions=nodirs;
-Separator=, 
-Dependencies=thunderbird;

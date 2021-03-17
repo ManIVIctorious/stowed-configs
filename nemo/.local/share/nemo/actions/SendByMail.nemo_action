@@ -1,0 +1,9 @@
+[Nemo Action]
+Active=true
+Name=Per eMail versenden
+Exec=xdg-email --attach "%F"
+Icon-Name=mail-attachment
+Selection=notnone
+Extensions=nodirs;
+Separator=" --attach "
+Dependencies=xdg-email;
