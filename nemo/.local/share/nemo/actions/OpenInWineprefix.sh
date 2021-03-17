@@ -1,16 +1,8 @@
 #!/usr/bin/bash
 
-routine="$1"
-executable="$2"
-prefix="$(zenity --file-selection --directory --filename=/home/$USER/.wein/)"
+# select wine prefix directory via zenity directory chooser dialogue
+defaultprefixdirectory="${HOME}/.wein/"
+prefixdir="$(zenity --file-selection --directory --filename=${defaultprefixdirectory})"
 
-WINEPREFIX="$prefix" "$routine" "$executable"
-
-##Debug-Variablen
-#echo "----------------------------------------------------------------"
-#echo "DEBUG"
-#echo -e "\troutine    = "$routine
-#echo -e "\texecutable = "$executable
-#echo -e "\twineprefix = "$prefix
-#echo "GUBED"
-#echo "----------------------------------------------------------------"
+# run wine in prefix directory
+WINEPREFIX="$prefixdir" wine "$1"

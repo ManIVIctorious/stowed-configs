@@ -1,7 +1,7 @@
 [Nemo Action]
 Active=true
 Name=Open in Wineprefix
-Exec=<OpenInWineprefix.sh wine %F>
+Exec=<OpenInWineprefix.sh %F>
 Icon-Name=wine
 Selection=s
 Extensions=exe;msi;
