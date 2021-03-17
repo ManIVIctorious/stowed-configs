@@ -1,0 +1,12 @@
+[Nemo Action]
+Active=true
+Name=Konvertiere zu Pdf
+Exec=org.libreoffice.LibreOffice --headless --invisible --convert-to pdf %F --outdir %P
+Icon-Name=pdf
+Selection=notnone
+Mimetypes=application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.spreadsheet;application/vnd.oasis.opendocument.presentation;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/msword;
+Quote=double
+Dependencies=org.libreoffice.LibreOffice;
+
+# To generate hybrid-pdf files the corresponding tick box
+# must be set in the libreoffice export document to pdf dialogue once
