@@ -1,9 +1,9 @@
 [Nemo Action]
 Active=true
-Name=Erzeuge Pdf
-Exec=<ConvertTex.sh "pdflatex -synctex=1" %F>
+Name=Zu Pdf kompilieren
+Exec=<CompileTex2Pdf.sh %P %f>
 Icon-Name=pdf
 Selection=notnone
 Mimetypes=text/x-tex;
 Quote=double
-Dependencies=pdflatex;
+Dependencies=latexmk;make;
