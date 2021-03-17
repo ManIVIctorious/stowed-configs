@@ -1,9 +1,0 @@
-[Nemo Action]
-Active=true
-Name=Zufällige Datei
-Exec=random-file -p %F -c xdg-open
-Icon-Name=folder
-Selection=s
-Extensions=dir;
-Dependencies=find;xdg-open;random-file;
-EscapeSpaces=true
