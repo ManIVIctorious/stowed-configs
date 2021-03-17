@@ -31,6 +31,8 @@ let mapleader = "\<Space>"  "set map leader
   set wildmenu       "displays auto-completed command list on pressing wildchar (i.e. tab)
  "set wildignorecase "case insensitive completion in wildmenu
   set visualbell     "flash the buffer when encountering an error (e.g. invalid movement)
+ "set scrolloff=999  "keep cursor on the middle line as long as possible (default: so=0)
+
 
  "Search (:h /, magic, pattern-overview)
   set ignorecase     "ignore case when using a search pattern
@@ -134,7 +136,7 @@ let mapleader = "\<Space>"  "set map leader
   nnoremap <leader>m    :make<CR>
 
  "copy whole content to clipboard
-  nnoremap <leader>y    :%y+
+  nnoremap <leader>y    :%y+<CR>
 
  "edit file in multiple columns
   noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
@@ -188,14 +190,14 @@ let mapleader = "\<Space>"  "set map leader
  "move between split-windows by hitting "alt+{arrow-keys}"
  "(unfortunately alt+{h,j,k,l} don't get sent to vim properly)
  "{{{
+   noremap <leader>h      <C-w>h
+   noremap <leader>j      <C-w>j
+   noremap <leader>k      <C-w>k
+   noremap <leader>l      <C-w>l
    noremap <M-Left>       <C-w>h
    noremap <M-Down>       <C-w>j
    noremap <M-Up>         <C-w>k
    noremap <M-Right>      <C-w>l
-  inoremap <M-Left>  <Esc><C-w>ha
-  inoremap <M-Down>  <Esc><C-w>ja
-  inoremap <M-Up>    <Esc><C-w>ka
-  inoremap <M-Right> <Esc><C-w>la
  "}}}
 "}}}
 "{{{ Plugins
@@ -236,9 +238,9 @@ let mapleader = "\<Space>"  "set map leader
      noremap <leader>n :NERDTreeToggleVCS<CR>
 
   "Sved (Synchronize Vim Evince) (:h sved)
-   call minpac#add('peterbjorgensen/sved')
+""   call minpac#add('peterbjorgensen/sved')
     "Map latex forward search with evince by <leader>f
-     nnoremap <leader>f :call SVED_Sync()<CR>
+""     nnoremap <leader>f :call SVED_Sync()<CR>
 
 "  call minpac#add('ycm-core/YouCompleteMe')             "(:h youcompleteme-contents)
 
