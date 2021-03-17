@@ -1,0 +1,9 @@
+[Nemo Action]
+Active=true
+Name=Ränder Stutzen
+Exec=<ConvertImage.sh -o "-trim" -s "_trimmed" %F>
+Icon-Name=folder
+Selection=notnone
+Mimetypes=image/*;
+Dependencies=convert;
+Quote=double
