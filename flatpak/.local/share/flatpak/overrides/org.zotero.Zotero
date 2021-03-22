@@ -1,5 +1,6 @@
 [Context]
-filesystems=host
+filesystems=!xdg-public-share;!xdg-desktop;!~/.zotero:create;!xdg-videos;!xdg-pictures;!xdg-music
+persistent=.zotero
 
 [Environment]
 LANG=en_US.UTF-8
