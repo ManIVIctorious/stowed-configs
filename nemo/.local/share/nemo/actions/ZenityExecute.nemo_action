@@ -1,7 +1,7 @@
 [Nemo Action]
 Active=true
 Name=Execute Command
-Exec=<ZenityExecute.sh %F>
+Exec=<ZenityExecute.sh -p %P %F>
 Icon-Name=gtk-execute
 Selection=any
 Extensions=any;

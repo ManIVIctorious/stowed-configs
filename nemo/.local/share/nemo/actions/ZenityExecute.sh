@@ -1,49 +1,29 @@
 #!/usr/bin/bash
 
-string="$(zenity --entry)"
+# if a path is provided (-p) switch there
+while getopts "p:" opt; do
+  case $opt in
+    p)  cd "${OPTARG}";;
+  esac
+done
+shift $(( OPTIND - 1 ))
 
-if [ -z "$string" ]
-then
-    exit 0
-fi
+# create dialogue to enter command and store its output in cmd
+cmd="$(zenity --entry --title ZenityExecute)"
 
-if [[ "$string" == *"{}"* ]]
-then
-    executefirst="${string%\{\}*}"
-    executelast="${string#*\{\}}"
+# do nothing if no command is provided
+if [ -z "${cmd}" ]; then exit 0; fi
+
+# if a {} is present in the cmd string substitute it
+# with the command arguments, else append the arguments
+if [[ "${cmd}" == *"{}"* ]]; then
+  cmd=$(sed 's/{}/$@/' <<< "${cmd}")
 else
-    executefirst="${string}"
-    executelast=""
+  cmd="${cmd} '$@'"
 fi
 
-firstfile="$1"
+answer="$(eval ${cmd})"
 
-if [ -d "$firstfile" ]
-then
-    path="$firstfile"
-else
-    path="${firstfile%/*}"
-fi
-
-cd "$path"
-
-execution="$($executefirst "$@" "$executelast")"
-
-##DEBUG
-#echo "--------------------------------------------------------"
-#echo -e "\tstring\t\t$string"
-#echo -e "\texecutefirst\t$executefirst"
-#echo -e "\texecutelast\t$executelast"
-#echo -e "\tfirstfile\t$firstfile"
-#echo -e "\texecutedstring\t$executefirst$firstfile$executelast"
-#echo -e "\tpath\t\t$path"
-#echo -e "\texecution\t$execution"
-#echo "--------------------------------------------------------"
-##GUBED
-
-if [ -z "$execution" ]
-then
-    exit 0
-fi
-
-zenity --info --text="$(echo "$execution")"
+# if the command returns some answer print it in an info box
+if [ -z "${answer}" ]; then exit 0; fi
+zenity --info --text="$(echo "${answer}")"

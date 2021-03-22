@@ -1,13 +1,10 @@
 #!/usr/bin/bash
 
-fileextension="$1"
+fileext="$1"
+cd "$2"
+shift
 shift
 
-cd "$1"
-shift
-
-while [ $# -gt 0 ]
-do
-    xmgrace -hdevice "$fileextension" -hardcopy "$1"
-    shift
+for agrfile in "$@"; do
+  xmgrace -hdevice "${fileext}" -hardcopy "${agrfile}"
 done
