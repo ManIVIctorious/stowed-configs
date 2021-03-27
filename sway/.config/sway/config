@@ -21,7 +21,6 @@ set $right l
 
 ## include additional config files
 #---------------------------------------------------------------------------------
-include MediaButtons
 include KeyboardConfig
 include WorkspaceConfig
 include CustomKeybindings
