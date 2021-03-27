@@ -40,3 +40,6 @@ for_window [class="steam_app*"] inhibit_idle focus
 # Make gnome-contacts floating
 for_window [app_id="gnome-contacts"]\
     floating enable;
+
+for_window [class="Zotero" title="Quick Format Citation"]\
+    floating enable;
