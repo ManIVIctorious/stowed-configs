@@ -10,3 +10,15 @@
 exec --no-startup-id setxkbmap\
      -layout "de,us,it"\
      -option "caps:escape_shifted_capslock,grp:shifts_toggle,numpad:mac"
+
+## Enable media buttons (requires pulseaudio's pactl, brightnessctl and playerctl)
+#---------------------------------------------------------------------------------
+bindsym XF86AudioRaiseVolume    exec pactl set-sink-volume @DEFAULT_SINK@    +5%
+bindsym XF86AudioLowerVolume    exec pactl set-sink-volume @DEFAULT_SINK@    -5%
+bindsym XF86AudioMute           exec pactl set-sink-mute   @DEFAULT_SINK@   toggle
+bindsym XF86AudioMicMute        exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown   exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp     exec brightnessctl set +5%
+bindsym XF86AudioPlay           exec playerctl play-pause
+bindsym XF86AudioNext           exec playerctl next
+bindsym XF86AudioPrev           exec playerctl previous

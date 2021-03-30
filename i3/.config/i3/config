@@ -16,26 +16,8 @@ set $down  j
 set $up    k
 set $right l
 
-## Hint:
-#---------------------------------------------------------------------------------
-# most settings placed here can also be applied via the swaymsg command
-# e.g. swaymsg -t get_outputs) or swaymsg "output eDP-1 enable|disable|toggle"
-
 ## include additional config files
 #---------------------------------------------------------------------------------
-# include MediaButtons {{{
-  ## Enable media buttons (requires pulseaudio's pactl, brightnessctl and playerctl)
-  #---------------------------------------------------------------------------------
-  bindsym XF86AudioRaiseVolume    exec pactl set-sink-volume @DEFAULT_SINK@    +5%
-  bindsym XF86AudioLowerVolume    exec pactl set-sink-volume @DEFAULT_SINK@    -5%
-  bindsym XF86AudioMute           exec pactl set-sink-mute   @DEFAULT_SINK@   toggle
-  bindsym XF86AudioMicMute        exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-  bindsym XF86MonBrightnessDown   exec brightnessctl set 5%-
-  bindsym XF86MonBrightnessUp     exec brightnessctl set +5%
-  bindsym XF86AudioPlay           exec playerctl play-pause
-  bindsym XF86AudioNext           exec playerctl next
-  bindsym XF86AudioPrev           exec playerctl previous
-#}}}
 # include KeyboardConfig {{{
   ## Keyboard config
   #---------------------------------------------------------------------------------
@@ -49,6 +31,18 @@ set $right l
   exec --no-startup-id setxkbmap\
        -layout "de,us,it"\
        -option "caps:escape_shifted_capslock,grp:shifts_toggle,numpad:mac"
+
+  ## Enable media buttons (requires pulseaudio's pactl, brightnessctl and playerctl)
+  #---------------------------------------------------------------------------------
+  bindsym XF86AudioRaiseVolume    exec pactl set-sink-volume @DEFAULT_SINK@    +5%
+  bindsym XF86AudioLowerVolume    exec pactl set-sink-volume @DEFAULT_SINK@    -5%
+  bindsym XF86AudioMute           exec pactl set-sink-mute   @DEFAULT_SINK@   toggle
+  bindsym XF86AudioMicMute        exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+  bindsym XF86MonBrightnessDown   exec brightnessctl set 5%-
+  bindsym XF86MonBrightnessUp     exec brightnessctl set +5%
+  bindsym XF86AudioPlay           exec playerctl play-pause
+  bindsym XF86AudioNext           exec playerctl next
+  bindsym XF86AudioPrev           exec playerctl previous
 #}}}
 # include WorkspaceConfig{{{
   ## Workspace config:
@@ -98,28 +92,6 @@ set $right l
   # start nemo file manager via <mod-n>
   bindsym $mod+n exec --no-startup-id nemo
 #}}}
-# include AutostartPrograms {{{
-  ## Autostart programs
-  #---------------------------------------------------------------------------------
-  # run nm-applet
-    exec --no-startup-id nm-applet
-
-  # redshift:
-    exec --no-startup-id redshift-gtk
-
-  # Gnome Software background update
-    exec --no-startup-id gnome-software --gapplication-service
-
-  # Geary mail program
-    exec --no-startup-id org.gnome.Geary --gapplication-service
-
-  # Dropbox client
-    exec --no-startup-id com.dropbox.Client
-
-  # run settings and notification daemons
-    exec --no-startup-id xsettingsd
-    exec --no-startup-id dunst
-#}}}
 # include ThemingValues {{{
   ## Theming values
   #-------------------------------------------------------------------------------
@@ -139,11 +111,16 @@ set $right l
   # lock screen via <C-A-l>
   bindsym $ctrl+$alt+l  exec loginctl lock-session
 #}}}
-## include WindowRules
+# include WindowRules {{{
+  for_window [class="gnuplot"] floating enable;
+#}}}
 #---------------------------------------------------------------------------------
 
 # Your preferred terminal emulator
 set $term gnome-terminal
+# run settings and notification daemons
+  exec --no-startup-id xsettingsd
+  exec --no-startup-id dunst
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -153,7 +130,7 @@ set $menu exec j4-dmenu-desktop --dmenu='bemenu -i -m all'
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-exec --no-startup-id feh --bg-scale /usr/share/backgrounds/gnome/Icetwigs.jpg
+exec_always --no-startup-id feh --bg-scale /usr/share/backgrounds/gnome/Tree.jpg
 #
 # Example configuration:
 #
@@ -354,3 +331,7 @@ bar {
         position            top
         workspace_buttons   yes
 }
+
+# after initialisation start the systemd --user i3-session.target, depending
+# on xdg-desktop-autostart.target, adhering to the xdg-autostart specification
+exec "systemctl --user start i3-session.target"
