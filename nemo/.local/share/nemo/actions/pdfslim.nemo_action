@@ -2,10 +2,10 @@
 
 Active=true
 Name=Pdf komprimieren
-Exec=pdf-size-reducer.sh -Q "/printer" -a "-compressed" %F
+Exec=<pdfslim.sh %F>
 Icon-Name=pdf
 Selection=notnone
 Mimetypes=application/pdf;
 Quote=double
-Dependencies=gs;pdf-size-reducer.sh;
+Dependencies=gs;pdf-size-reducer.sh;zenity;
 EscapeSpaces=true
