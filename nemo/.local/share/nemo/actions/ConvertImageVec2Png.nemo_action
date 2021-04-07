@@ -1,6 +1,7 @@
 [Nemo Action]
 Active=true
-Name=Konvertiere zu Png
+Name=Convert to Png
+Name[de]=In Png umwandeln
 Exec=<ConvertImage.sh -i "-density 300" -e "png" %F>
 Icon-Name=folder
 Selection=notnone

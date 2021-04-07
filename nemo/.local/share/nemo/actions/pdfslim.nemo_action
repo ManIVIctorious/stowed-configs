@@ -1,7 +1,7 @@
 [Nemo Action]
-
 Active=true
-Name=Pdf komprimieren
+Name=Compress Pdf
+Name[de]=Pdf komprimieren
 Exec=<pdfslim.sh %F>
 Icon-Name=pdf
 Selection=notnone

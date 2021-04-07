@@ -1,6 +1,7 @@
 [Nemo Action]
 Active=true
-Name=In ISO9660 umwandeln
+Name=Convert to ISO9660
+Name[de]=In ISO9660 umwandeln
 Exec=<ConvertDiskImage.sh iso %F>
 Icon-Name=application-x-cd-image
 Selection=notnone

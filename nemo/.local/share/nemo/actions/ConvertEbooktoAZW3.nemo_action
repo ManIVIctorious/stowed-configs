@@ -1,6 +1,7 @@
 [Nemo Action]
 Active=true
-Name=In AZW3 Umwandeln
+Name=Convert to AZW3
+Name[de]=In AZW3 umwandeln
 Exec=<ConvertEbook.sh azw3 %F>
 Icon-Name=audiobook
 Selection=notnone

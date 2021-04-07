@@ -1,6 +1,7 @@
 [Nemo Action]
 Active=true
-Name=Datei drucken
+Name=Print file
+Name[de]=Datei drucken
 Exec=<Print.sh "libreoffice --headless --pt" %F>
 Icon-Name=printer
 Selection=notnone

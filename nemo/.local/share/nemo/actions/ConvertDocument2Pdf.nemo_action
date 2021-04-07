@@ -1,6 +1,7 @@
 [Nemo Action]
 Active=true
-Name=Konvertiere zu Pdf
+Name=Convert to Pdf
+Name[de]=In Pdf umwandeln
 Exec=org.libreoffice.LibreOffice --headless --invisible --convert-to pdf %F --outdir %P
 Icon-Name=pdf
 Selection=notnone

@@ -1,6 +1,7 @@
 [Nemo Action]
 Active=true
-Name=Per eMail versenden
+Name=Send per E-Mail
+Name[de]=Als E-Mail versenden
 Exec=xdg-email --attach "%F"
 Icon-Name=mail-attachment
 Selection=notnone

@@ -1,6 +1,7 @@
 [Nemo Action]
 Active=true
-Name=Zu Pdf kompilieren
+Name=Compile Pdf
+Name[de]=Zu Pdf kompilieren
 Exec=<CompileTex2Pdf.sh %P %f>
 Icon-Name=pdf
 Selection=notnone
