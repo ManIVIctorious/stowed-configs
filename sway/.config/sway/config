@@ -239,4 +239,7 @@ bindsym $mod+r mode "resize"
 
 # after sway initialisation start the systemd --user sway-session.target, depending
 # on xdg-desktop-autostart.target, adhering to the xdg-autostart specification
+
+# export Wayland display to fix gtk applications
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec "systemctl --user start sway-session.target"
