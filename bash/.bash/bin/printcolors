@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+# Print supported colors
+# usage:    printcolors
+local C=""
+for C in {0..255}; do
+  tput setaf $C
+  echo -n "$C "
+done
+tput sgr0
+echo

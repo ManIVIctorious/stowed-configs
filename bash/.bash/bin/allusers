@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+# allusers - Print list of all system users
+# this does not include systemd-homed users
+#  to list these "homectl list" can be used
+cat /etc/passwd | cut -d: -f1

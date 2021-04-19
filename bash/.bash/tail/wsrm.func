@@ -1,9 +1,0 @@
-
-
-# wsrm - white space remover
-# usage:    wsrm <file(s)>
-function wsrm {
-  for FILE in "${@}"; do
-    mv -v "$FILE" $(sed "s/\s\+/_/g" <<< "$FILE")
-  done
-}

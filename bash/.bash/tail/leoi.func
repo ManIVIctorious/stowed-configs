@@ -1,9 +1,0 @@
-
-
-# leoi - LeoDictionary
-# requires: w3m
-# usage:    leoi <searched-word(german or italian)>
-function leoi {
-  local phrase='\(Substantive\|Verben\|Adjektive\|Beispiele\|Phrasen\|Ähnliche\|Suchumfeld\|Diskussionen\)'
-  w3m -dump "http://pda.leo.org/?lp=itde&search=\"$*\""  | sed -n "/\(${phrase}::\)\+/I,\$p" | less
-}

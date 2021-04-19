@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+# display load average by using the "load" command
+awk '{print $1,$2,$3}' /proc/loadavg
+

@@ -1,8 +1,5 @@
-
+#!/usr/bin/bash
 
 # simple shortcut to open the provided
 # (in path) script in less
-function show {
-  less -FX $(which "$1")
-}
-export -f show
+less -FX $(which "$1")

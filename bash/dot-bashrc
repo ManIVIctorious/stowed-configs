@@ -1,12 +1,27 @@
 
-# source the bash head file
+# The ${bashdir} contains additional directories to be digested by the bashrc file
+#   head/   system specific exports that should be executed before the rest of the bashrc.
+#           Files dropped into this directory must follow the pattern *.export.
+#   tail/   bash functions and other bashrc entries which should be sourced after
+#           the rest of the file.
+#           Valid filename patterns for this directory are *.export and *.func
+#   bin/    bash specific executable scripts, not suitable for use in different context
 bashdir="${HOME}/.bash"
-if [ -d ${bashdir} ]; then
-  headfile="${bashdir}/bash.head"
-  if [ -f ${headfile} ]; then source ${headfile}; fi
+if [ -d "${bashdir}" ]; then
+# source head files
+  headdir="${bashdir}/head"
+  if [ -d "${headdir}" ]; then
+    for file in "${headdir}/"*.export; do
+      if [ -f "${file}" ]; then source "${file}"; fi
+    done
+  fi
+
+# add ${bashdir}/bin to path
+  PATH=${PATH}:${bashdir}/bin
 fi
 
-# set vi input mode
+
+# set vi input mode and EDITOR variable
 set -o vi
 export EDITOR=nvim
 
@@ -22,8 +37,9 @@ export HISTCONTROL=ignorespace:erasedups
 export HISTIGNORE="ls:la:ll:lt:lla:cd:top:\:*:make:history"
 
 # set the default prompt
-#   if previous command was successful display green ✓, else display red ✗
 #{{{
+
+# define colors and styles
 if (tty -s); then
      BOLD="$(tput bold)"
      BLUE="$(tput setaf 45)"
@@ -33,6 +49,7 @@ if (tty -s); then
     RESET="$(tput sgr0)"
 fi
 
+# if previous command was successful display green ✓, else display red ✗
 function checkreturn {
     local return=$?
 
@@ -43,11 +60,13 @@ function checkreturn {
     fi
 }
 
+# set different prompt colors if accessing remotely
 if [ -n "${SSH_TTY}" ]; then
     PROMPTCOLOR=${BLUE}
 else
     PROMPTCOLOR=${WHITE}
 fi
+
 #}}}
 MYPROMPT='[\u@\h \W]\$'
 export PS1='$(checkreturn)'"\[${BOLD}${PROMPTCOLOR}\] ${MYPROMPT} \[${RESET}\]"
@@ -100,7 +119,6 @@ export PS1='$(checkreturn)'"\[${BOLD}${PROMPTCOLOR}\] ${MYPROMPT} \[${RESET}\]"
 
 # additional aliases
   alias cp="cp -i"
-  alias todo="notes"
 
 # provide the histg (history grep) command
   alias histg='history | grep'
@@ -117,24 +135,13 @@ export PS1='$(checkreturn)'"\[${BOLD}${PROMPTCOLOR}\] ${MYPROMPT} \[${RESET}\]"
 # set default values for find (requires which to prevent infinite recursion)
   function find { $(which find) "$@" -regextype grep; }
 
-# display load average by using the "load" command
-  function load { awk '{print $1,$2,$3}' /proc/loadavg; }; export -f load
 
-# create function to update bash files
-  function updaterc {
-
-    bashdir="${HOME}/.bash"
-
-    if [ -d ${bashdir} ]; then
-      cat ${bashdir}/head/* > ${bashdir}/bash.head
-      cat ${bashdir}/tail/* > ${bashdir}/bash.tail
-      source ~/.bashrc
-    fi
-
-  }
-
-# source the bash tail file
-if [ -d ${bashdir} ]; then
-  tailfile="${bashdir}/bash.tail"
-  if [ -f ${tailfile} ]; then source ${tailfile}; fi
+# source tail files
+if [ -d "${bashdir}" ]; then
+  taildir="${bashdir}/tail"
+  if [ -d "${taildir}" ]; then
+    for file in "${taildir}/"*.{export,func}; do
+      if [ -f "${file}" ]; then source "${file}"; fi
+    done
+  fi
 fi

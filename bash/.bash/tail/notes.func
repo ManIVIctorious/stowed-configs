@@ -1,7 +1,7 @@
 
 
 # notes
-# Open notes/todo/journal with default editor
+# Open notes/journal with default editor
 # filename and directory can be overwritten by setting ${journaldirectory}
 # and/or ${journalfile} variables. Per default ${journalfile} is unset,
 # resulting in the editor opening the ${journaldirectory}
@@ -17,3 +17,4 @@ function notes {
 
   $EDITOR ${journaldirectory}/${journalfile}
 }
+export -f notes

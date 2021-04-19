@@ -26,3 +26,4 @@ function ls {
 
   command "${lscmd}" "${args[@]}" "$@"
 }
+export -f ls

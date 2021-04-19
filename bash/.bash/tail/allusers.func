@@ -1,6 +1,0 @@
-
-
-# allusers - Print list of all installed users
-function allusers {
-  cat /etc/passwd | cut -d: -f1
-}
