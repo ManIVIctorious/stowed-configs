@@ -1,5 +1,5 @@
 [Context]
-filesystems=!xdg-desktop;!xdg-videos;!xdg-public-share;!xdg-pictures;!xdg-music;~/Zotero:create;xdg-download:ro;xdg-documents:ro;!home
+filesystems=!xdg-desktop;!xdg-videos;!xdg-public-share;!xdg-pictures;!xdg-music;xdg-download:ro;~/Zotero:create;!home
 persistent=.zotero
 
 [Environment]
