@@ -1,17 +1,17 @@
 
 # The ${bashdir} contains additional directories to be digested by the bashrc file
 #   head/   system specific exports that should be executed before the rest of the bashrc.
-#           Files dropped into this directory must follow the pattern *.export.
+#           Files dropped into this directory must follow the pattern *.bash.
 #   tail/   bash functions and other bashrc entries which should be sourced after
 #           the rest of the file.
-#           Valid filename patterns for this directory are *.export and *.func
+#           Valid filename patterns for this directory are *.bash and *.func
 #   bin/    bash specific executable scripts, not suitable for use in different context
 bashdir="${HOME}/.bash"
 if [ -d "${bashdir}" ]; then
 # source head files
   headdir="${bashdir}/head"
   if [ -d "${headdir}" ]; then
-    for file in "${headdir}/"*.export; do
+    for file in "${headdir}/"*.bash; do
       if [ -f "${file}" ]; then source "${file}"; fi
     done
   fi
@@ -140,7 +140,7 @@ export PS1='$(checkreturn)'"\[${BOLD}${PROMPTCOLOR}\] ${MYPROMPT} \[${RESET}\]"
 if [ -d "${bashdir}" ]; then
   taildir="${bashdir}/tail"
   if [ -d "${taildir}" ]; then
-    for file in "${taildir}/"*.{export,func}; do
+    for file in "${taildir}/"*.{bash,func}; do
       if [ -f "${file}" ]; then source "${file}"; fi
     done
   fi
