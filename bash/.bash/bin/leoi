@@ -3,5 +3,13 @@
 # leoi - LeoItalianDictionary
 # requires: w3m
 # usage:    leoi <searched-word(german or italian)>
-local phrase='\(Substantive\|Verben\|Adjektive\|Beispiele\|Phrasen\|Ähnliche\|Suchumfeld\|Diskussionen\)'
+
+# check if w3m is available
+if !( which w3m >/dev/null 2>&1 ); then
+  echo "This script requires w3m to be available on the PATH" >&2
+  echo "Aborting..." >&2
+  exit 1
+fi
+
+phrase='\(Substantive\|Verben\|Adjektive\|Beispiele\|Phrasen\|Ähnliche\|Suchumfeld\|Diskussionen\)'
 w3m -dump "http://pda.leo.org/?lp=itde&search=\"$*\""  | sed -n "/\(${phrase}::\)\+/I,\$p" | less
