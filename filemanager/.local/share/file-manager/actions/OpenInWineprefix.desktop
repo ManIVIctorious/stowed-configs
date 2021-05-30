@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=Action
+Name=Open in Wineprefix
+Name[de]=In Wineprefix öffnen
+ToolbarLabel[de]=In Wineprefix öffnen
+Profiles=profile-zero;
+
+Name[de_DE]=In Wineprefix öffnen
+ToolbarLabel[de_DE]=In Wineprefix öffnen
+
+[X-Action-Profile profile-zero]
+Exec=/home/manuel/.local/share/file-manager/bin/OpenInWineprefix.sh %F
+Icon-Name=wine
+Selection=s
+Quote=double
+Dependencies=wine;zenity;
+Name[de_DE]=Vorgabeprofil
+Name[de]=Vorgabeprofil
+Schemes=*.msi;*.exe;

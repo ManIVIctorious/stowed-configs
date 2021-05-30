@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=Action
+Name=Convert to ISO9660
+Name[de]=In ISO9660 umwandeln
+ToolbarLabel[de]=In ISO9660 umwandeln
+Profiles=profile-zero;
+
+Name[de_DE]=In ISO9660 umwandeln
+ToolbarLabel[de_DE]=In ISO9660 umwandeln
+
+[X-Action-Profile profile-zero]
+Exec=/home/manuel/.local/share/file-manager/bin/ConvertDiskImage.sh iso %F
+Icon-Name=application-x-cd-image
+Selection=notnone
+Quote=double
+Dependencies=iat;
+Name[de_DE]=Vorgabeprofil
+Name[de]=Vorgabeprofil
+Schemes=*.bin;*.mdf;*.img;*.nrg;

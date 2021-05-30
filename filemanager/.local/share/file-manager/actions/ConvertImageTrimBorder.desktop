@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Action
+Name=Trim margins
+Name[de]=Ränder stutzen
+ToolbarLabel[de]=Pdf komprimieren
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+Exec=/home/manuel/.local/share/file-manager/bin/ConvertImage.sh -o "-trim" -s "_trimmed" %F
+Icon-Name=folder
+Selection=notnone
+MimeTypes=image/*;
+Dependencies=convert;
+Quote=double

@@ -1,0 +1,20 @@
+[Desktop Entry]
+Type=Action
+Name=Convert to Pdf
+Name[de]=In Pdf umwandeln
+ToolbarLabel[de]=In Pdf umwandeln
+Profiles=profile-zero;
+
+Name[de_DE]=In Pdf umwandeln
+ToolbarLabel[de_DE]=In Pdf umwandeln
+
+[X-Action-Profile profile-zero]
+Exec=org.libreoffice.LibreOffice --headless --invisible --convert-to pdf %F --outdir %d
+Icon-Name=pdf
+Selection=notnone
+MimeTypes=application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.spreadsheet;application/vnd.oasis.opendocument.presentation;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/msword;
+Quote=double
+Dependencies=org.libreoffice.LibreOffice;
+
+# To generate hybrid-pdf files the corresponding tick box
+# must be set in the libreoffice export document to pdf dialogue once

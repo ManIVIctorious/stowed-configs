@@ -1,0 +1,1 @@
+../../nemo/actions/OpenInWineprefix.sh

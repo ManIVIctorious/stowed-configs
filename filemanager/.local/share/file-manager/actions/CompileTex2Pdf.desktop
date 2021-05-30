@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Action
+Name=Compile Pdf
+Name[de]=Zu Pdf kompilieren
+ToolbarLabel[de]=Zu Pdf kompilieren
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+Exec=/home/manuel/.local/share/file-manager/bin/CompileTex2Pdf.sh %P %f
+Icon-Name=pdf
+Selection=notnone
+MimeTypes=text/x-tex;
+Quote=double
+Dependencies=latexmk;make;

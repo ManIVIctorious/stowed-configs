@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=Action
+Name=Convert to AZW3
+Name[de]=In AZW3 umwandeln
+Profiles=profile-zero;
+
+Name[de_DE]=In AZW3 umwandeln
+ToolbarLabel[de_DE]=In AZW3 umwandeln
+ToolbarLabel[de]=In AZW3 umwandeln
+
+[X-Action-Profile profile-zero]
+Exec=/home/manuel/.local/share/file-manager/bin/ConvertEbook.sh azw3 %F
+Name[de_DE]=Vorgabeprofil
+Name[de]=Vorgabeprofil
+Icon-Name=audiobook
+Selection=notnone
+MimeTypes=application/epub+zip;application/x-cbz;application/x-cbr;
+Quote=double
+Dependencies=ebook-convert;

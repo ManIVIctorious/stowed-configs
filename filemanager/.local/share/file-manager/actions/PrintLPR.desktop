@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Action
+Name=Print file
+Name[de]=Datei drucken
+ToolbarLabel[de]=Datei drucken
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+Exec=/home/manuel/.local/share/file-manager/bin/Print.sh "lpr -P" %F
+Icon-Name=printer
+Selection=notnone
+MimeTypes=text/plain;application/postscript;application/pdf;
+Quote=double
+Dependencies=lpr;zenity;

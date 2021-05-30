@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Action
+Name=Convert to EPS-file
+Name[de]=In EPS-Datei umwandeln
+ToolbarLabel[de]=In EPS-Datei umwandeln
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+Exec=/home/manuel/.local/share/file-manager/bin/ConvertAgrPlot.sh "EPS" %P %F
+#Exec=xmgrace -hdevice "EPS" -hardcopy %F
+Icon-Name=xmgrace
+Selection=notnone
+Schemes=*.agr;
+MimeTypes=application/grace;
+Quote=double
+Dependencies=xmgrace;

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Action
+Name=Execute command
+Name[de]=Befehl ausführen
+ToolbarLabel[de]=Befehl ausführen
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+Exec=/home/manuel/.local/share/file-manager/bin/ZenityExecute.sh -p %d %F
+Icon-Name=gtk-execute
+Selection=any
+Quote=double
+Dependencies=zenity;

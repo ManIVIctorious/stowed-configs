@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Action
+Name=Convert to Png
+Name[de]=In Png umwandeln
+ToolbarLabel[de]=Pdf komprimieren
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+Exec=/home/manuel/.local/share/file-manager/bin/ConvertImage.sh -i "-density 300" -e "png" %F
+Icon-Name=folder
+Selection=notnone
+MimeTypes=application/pdf;application/postscript;image/svg+xml;image/x-eps;
+Dependencies=convert;
+Quote=double

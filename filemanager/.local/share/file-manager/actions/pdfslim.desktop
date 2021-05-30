@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Action
+Name=Compress Pdf
+Name[de]=Pdf komprimieren
+ToolbarLabel[de]=Pdf komprimieren
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+Exec=/home/manuel/.local/share/file-manager/bin/pdfslim.sh %F
+Name[de_DE]=Vorgabeprofil
+Name[de]=Vorgabeprofil
+Mimetypes=application/pdf;
+Dependencies=gs;pdf-size-reducer.sh;zenity;
+MimeTypes=application/pdf;
