@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+flatpak run --command=gnuplot org.octave.Octave "$@"

@@ -1,0 +1,5 @@
+[Context]
+sockets=wayland
+
+[Environment]
+ANKI_WAYLAND=1
