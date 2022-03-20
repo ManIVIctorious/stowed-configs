@@ -123,6 +123,9 @@ export PS1='$(checkreturn)'"\[${BOLD}${PROMPTCOLOR}\] ${MYPROMPT} \[${RESET}\]"
 # provide the histg (history grep) command
   alias histg='history | grep'
 
+# add pglow (glow markdown viewer with pager)
+  alias pglow='glow -p'
+
 # settings for less:
   # source code highlighting for less, requires source-highlight package
   export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s --failsafe"
