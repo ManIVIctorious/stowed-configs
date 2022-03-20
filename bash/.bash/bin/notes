@@ -1,0 +1,20 @@
+
+# notes
+# Open notes with default editor
+
+# Per default notes are saved in ${HOME}/.local/notes, this directory can be
+# overwritten by setting the "journaldirectory" environment variable.
+# An optional file name can be passed to the script to open a specific file.
+
+# if unset set journaldirectory and ensure its existance
+JD=${journaldirectory:-${HOME}/.local/notes}
+if [ ! -d "${JD}" ]; then mkdir -p "${JD}"; fi
+
+count=0
+for i in "$@"; do
+    filepath[$count]="${JD}/$i"
+    count=$(( count + 1 ))
+done
+
+$EDITOR "${filepath[@]}"
+
