@@ -1,0 +1,52 @@
+#!/usr/bin/bash
+
+# print list of all subroutines
+function subprograms {
+  declare -F | awk '{print $3}' | grep -vP "(subprograms|ls)"
+}
+
+# print help-message for the individual subroutines
+function help {
+  cat << EOF
+    help                            Display this help message
+    appruntime [runtime]            Display all apps attached to a given runtime
+    apphistory <AppID>              Display commit-history of a given application
+    rollback   <AppID> <CommitID>   Rollback app to commit
+EOF
+}
+
+# get apps of a given runtime
+function appruntime {
+  runtime="$1"
+  flatpak list --app --columns=runtime,application 2>/dev/null | grep "${runtime}" | column -t
+}
+
+# get remote history of app
+function apphistory {
+  if [ $# -lt 1 ]; then echo "Please enter valid AppID"; exit; fi
+  application="$1"
+  remote=$(flatpak info --show-origin "${application}" 2>/dev/null)
+  flatpak remote-info --log "${remote}" "${application}"
+}
+
+# rollback to a given commit
+function rollback {
+  if [ $# -lt 2 ]; then
+    echo "Please enter valid AppID and CommitID";
+    exit;
+  fi
+  AppID="$1"
+  CommitID="$2"
+
+  flatpak update --commit="${CommitID}" "${AppID}" 2>/dev/null
+}
+
+# execute selected function
+returnvalue=1
+for i in $(declare -F | awk '{print $3}' | grep -v "ls"); do
+  if [ "$1" = "$i" ]; then
+    "$@"
+    retval=0
+  fi
+done
+exit ${retval}

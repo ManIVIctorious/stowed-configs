@@ -100,6 +100,8 @@ export PS1='$(checkreturn)'"\[${BOLD}${PROMPTCOLOR}\] ${MYPROMPT} \[${RESET}\]"
 #}}}
 
 
+## Enable alias expansion for sudo commands
+  alias sudo='sudo '
 ## Base aliases for the GNU core utils
 # editor
   alias vi="${EDITOR}"
@@ -122,6 +124,11 @@ export PS1='$(checkreturn)'"\[${BOLD}${PROMPTCOLOR}\] ${MYPROMPT} \[${RESET}\]"
 
 # provide the histg (history grep) command
   alias histg='history | grep'
+
+# aliases for tmux
+  alias tml='tmux list-sessions'
+  alias tms='tmux new-session -s'
+  alias tma='tmux attach-session -t'
 
 # add pglow (glow markdown viewer with pager)
   alias pglow='glow -p'

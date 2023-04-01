@@ -1,0 +1,13 @@
+
+
+## scan all ip addresses of a given network
+# requires nmap to be installed
+
+# first select an ip-range
+network="${1:-192.168.1.0/24}"
+
+# print network
+echo -e "Scaning Network: ${network}\n"
+
+# find all ip addresses (and names) and print from position 22 to end
+nmap -sn "${network}" | awk '/for/ {print substr($0,22)}'
