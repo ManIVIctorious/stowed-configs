@@ -6,6 +6,7 @@ setlocal shiftwidth=2   "number of spaces used for indentation steps
 setlocal commentstring=<!--%s-->
 setlocal expandtab
 setlocal breakindent    "on line wrap the "display-lines" are indented too
+setlocal nowrap
 
 "Additional comment strings and add them on carriage return
 setlocal comments+=fb:1.
@@ -20,3 +21,5 @@ nnoremap <buffer> <leader>f :silent ! okular % >/dev/null 2>&1 & <CR>
 setlocal display+=truncate
 
 setlocal suffixesadd=.md,.markdown
+setlocal conceallevel=2
+

@@ -1,0 +1,38 @@
+""Set map leader
+let mapleader = "\<Space>"
+
+"Set current working directory
+cd %:p:h
+
+""Install plugins and initialise them
+call plug#begin()
+ "Solarized Colorscheme (:h solarized)
+  Plug 'altercation/vim-colors-solarized'
+ "Highlighted Yank
+  Plug 'machakann/vim-highlightedyank'
+ "Fugitive git integration (:h fugitive)
+  Plug 'tpope/vim-fugitive'
+ "Add the change/delete surround commands cs"/ds"
+  Plug 'tpope/vim-surround'
+ "Use gc<motion> to comment out a section
+  Plug 'tpope/vim-commentary'
+ "Automatically close quotes, parentheses, brackets etc. (h: delimitMate)
+  Plug 'Raimondi/delimitMate'
+ "Sved (Synchronize Vim Evince) (:h sved)
+  Plug 'peterbjorgensen/sved'
+   "Map latex forward search with evince by <leader>f
+    nnoremap <leader>f :call SVED_Sync()<CR>
+ "Nerdtree with git plugin (:h NERDTree-contents)
+  Plug 'preservim/nerdtree'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+   "Map :NERDTreeToggle to <leader>n
+    noremap <leader>n :NERDTreeToggleVCS<CR>
+
+ "Ultisnips (:h UltiSnips, UltiSnips-basic-syntax)
+  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+   "Map UltiSnips completion to <C-j> (default is <Tab>)
+    let g:UltiSnipsExpandTrigger       = '<C-j>'
+    let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
+    let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+
+call plug#end()

@@ -6,7 +6,7 @@ setlocal shiftwidth=2   "number of spaces used for indentation steps
 setlocal commentstring=%%s
 setlocal expandtab
 setlocal breakindent    "on line wrap the "display-lines" are indented too
-setlocal dictionary+=~/.vim/words/tex.dict
+setlocal dictionary+=~/.vim/config/dictionaries/tex.dict
 
 "Display as much as possible of the last line in a window (:h 'display')
 setlocal display+=truncate
