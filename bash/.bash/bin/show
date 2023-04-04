@@ -1,5 +1,13 @@
 #!/usr/bin/bash
 
+if [ "$1" = "--help " ]; then
+  cat << EOF
+    Uses "which" to identify a script's path
+    and displays it in a pager window
+EOF
+exit
+fi
+
 # simple shortcut to open the provided
 # (in path) script in less
 less -FX $(which "$1")

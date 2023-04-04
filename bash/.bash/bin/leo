@@ -1,8 +1,16 @@
 #!/usr/bin/bash
 
-# leo - LeoDictionary
-# requires: w3m
-# usage:    leo <searched-word(german or english)>
+if [ "$1" = "--help" ]; then
+  cat << EOF
+    leo - LeoDictionary (de-en)
+    requires: w3m
+    usage:    leo <searched-word>
+
+    Query leo.org online dictionary for the given german or english word
+
+EOF
+exit
+fi
 
 # check if w3m is available
 if !( which w3m >/dev/null 2>&1 ); then

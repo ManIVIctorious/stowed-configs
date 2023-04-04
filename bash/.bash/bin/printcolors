@@ -1,9 +1,20 @@
 #!/usr/bin/bash
 
-# Print supported colors
-# usage:    printcolors
+if [ "$1" = "--help" ]; then
+  cat << EOF
+    Print supported colors
+    usage:    printcolors [background | bg]
+
+    Simple utility to display the supported colors of a 256 color terminal
+EOF
+exit
+fi
+
+EscSequence=setaf
+if [ "$1" = "background" -o "$1" = "bg" ]; then EscSequence=setab; fi
+
 for color in {0..255}; do
-  tput setaf ${color}
+  tput "${EscSequence}" ${color}
   echo -n "${color} "
 done
 tput sgr0

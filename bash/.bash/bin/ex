@@ -1,5 +1,16 @@
 #!/usr/bin/bash
 
+if [ "$1" = "--help" ]; then
+  cat << EOF
+    ex - archive extractor
+    usage:      ex <file>
+
+    simple extraction wrapper for command line archiving programs
+EOF
+exit
+fi
+
+
 # ex - archive extractor
 # usage:    ex <file>
 if [ -f "$1" ] ; then

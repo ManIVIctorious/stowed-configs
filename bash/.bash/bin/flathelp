@@ -41,12 +41,14 @@ function rollback {
   flatpak update --commit="${CommitID}" "${AppID}" 2>/dev/null
 }
 
-# execute selected function
-returnvalue=1
+
+# print help function when called with "--help" or no argument
+if [  $#  -lt   1    ]; then help; exit; fi
+if [ "$1" = "--help" ]; then help; exit; fi
+
+# verify that first argument is in the list of provided functions and execute
 for i in $(declare -F | awk '{print $3}' | grep -v "ls"); do
-  if [ "$1" = "$i" ]; then
-    "$@"
-    retval=0
-  fi
+  if [ "$1" = "$i" ]; then "$@"; exit; fi
 done
-exit ${retval}
+# else exit with error
+exit 22

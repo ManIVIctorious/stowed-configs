@@ -19,3 +19,9 @@ if [ $# -eq 0 ]; then filepath="${JD}"; fi
 
 $EDITOR "${filepath[@]}"
 
+# nt () { tree "${JD}" }
+# n+ () { $EDITOR "${filepath[@]}" }
+# n- () { rm "${filepath[@]}" }
+# ns () { grep -i $1 $2 }
+# nf () { grep -r -i $1 * }
+# nv () { less $1 }

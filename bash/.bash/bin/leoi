@@ -1,8 +1,16 @@
 #!/usr/bin/bash
 
-# leoi - LeoItalianDictionary
-# requires: w3m
-# usage:    leoi <searched-word(german or italian)>
+if [ "$1" = "--help" ]; then
+  cat << EOF
+    leo - LeoDictionary (de-it)
+    requires: w3m
+    usage:    leo <searched-word>
+
+    Query leo.org online dictionary for the given german or italian word
+
+EOF
+exit
+fi
 
 # check if w3m is available
 if !( which w3m >/dev/null 2>&1 ); then

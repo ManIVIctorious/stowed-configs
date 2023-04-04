@@ -1,5 +1,13 @@
 #!/usr/bin/bash
 
+if [ "$1" = "--help" ]; then
+  cat << EOF
+    Print current system load averages
+    (1 min, 5 min, 15 min)
+EOF
+exit
+fi
+
 # display load average by using the "load" command
 awk '{print $1,$2,$3}' /proc/loadavg
 

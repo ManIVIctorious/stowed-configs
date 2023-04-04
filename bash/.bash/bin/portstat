@@ -1,0 +1,14 @@
+
+portnumber=$1
+
+if ! [[ ${portnumber} =~ ^[0-9]+$ ]]; then
+  echo "Please enter a valid port number as argument"
+  exit 1
+fi
+
+user=$(whoami)
+if [ ${user} != "root" ]; then
+  echo -e "For full information (e.g. process name) please run the script as root\n"
+fi
+
+ss -lptn "sport = :${portnumber}"

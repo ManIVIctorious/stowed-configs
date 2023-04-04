@@ -1,7 +1,13 @@
 #!/usr/bin/bash
 
-# pdiff - pager-diff
-# enable color output in diff and pipe it into less
-#   if the output does not fit onto screen
-# usage:    pdiff <file1> <file2>
+if [ "$1" = "--help" ]; then
+  cat << EOF
+    pdiff - pager-diff
+    enable color output in diff and pipe it into less
+      if the output does not fit onto screen
+    usage:    pdiff <file1> <file2>
+EOF
+exit
+fi
+
 diff --color=always "$@" | less -RFX

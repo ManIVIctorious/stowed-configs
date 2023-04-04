@@ -1,6 +1,12 @@
 #!/usr/bin/bash
 
-# allusers - Print list of all system users
-# this does not include systemd-homed users
-#  to list these "homectl list" can be used
+if [ "$1" = "--help" ]; then
+  cat << EOF
+    allusers - Print all system users
+    The command does not list systemd-homed users to
+    display these "homectl list" can be used instead
+EOF
+exit
+fi
+
 cat /etc/passwd | cut -d: -f1
